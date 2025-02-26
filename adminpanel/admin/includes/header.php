@@ -14,7 +14,7 @@
     <title>Sat Exam Module</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
      
-    <!-- MAIN CSS NIYA -->
+    <!-- MAIN CSS -->
     <link href="./main.css" rel="stylesheet">
     <link href="css/sweetalert.css" rel="stylesheet">
     <link href="css/facebox.css" rel="stylesheet">
@@ -24,7 +24,8 @@
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <div class="app-header header-shadow">
             <div class="app-header__logo">
-                <h2>1TO1EDU</h2>
+                <!-- <h2>1TO1EDU</h2> -->
+                <a href="home.php"><div class="logo-src"></div></a>
                 <div class="header__pane ml-auto">
                     <div>
                         <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">

@@ -8,13 +8,13 @@ extract($_POST);
 // 1 - open question
 
 
-$selQuest = $conn->query("SELECT * FROM exam_question_tbl WHERE exam_id='$examId' AND exam_question='$question' ");
-if($selQuest->rowCount() > 0)
-{
-  $res = array("res" => "exist", "msg" => $question);
-}
-else
-{	
+// $selQuest = $conn->query("SELECT * FROM exam_question_tbl WHERE exam_id='$examId' AND exam_question='$question' ");
+// if($selQuest->rowCount() > 0)
+// {
+//   $res = array("res" => "exist", "msg" => $question);
+// }
+// else
+// {	
 	if($question_type==0){
 		$insQuest = $conn->prepare("INSERT INTO exam_question_tbl(exam_id,exam_question,question_detail,exam_ch1,exam_ch2,exam_ch3,exam_ch4,exam_answer,exam_part,question_type) 
 				VALUES(?,?,?,?,?,?,?,?,?,?) ");
@@ -59,7 +59,7 @@ else
 	}
 	
 	
-}
+// }
 
 
 

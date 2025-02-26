@@ -188,7 +188,7 @@ $(document).on("submit","#addExamFrm" , function(){
           $('#course_name').val("");
           refreshDiv();
     }
-    console.error(data);
+    // console.error(data);
   },'json')
   return false;
 });
@@ -264,11 +264,14 @@ $(document).on("submit","#updateQuestionFrm" , function(event){
         'Success',
          'Selected question has been successfully updated!',
         'success'
-      )
-        $('#updateQuestionFrm').reset();
-        refreshDiv();
+      ).then((result) => {
+        if (result.value) {
+        // $('#updateQuestionFrm').reset();
+        // refreshDiv();
+        window.location.reload();
+        }
+      })
     }
-   console.table(data.res);
   },
   error: function(){
     Swal.fire(
@@ -352,11 +355,11 @@ if(add_question_res.res == "exist")
       'Success',
       add_question_res.msg + ' question <br>Successfully added',
       'success'
-    )
-      
-      // $('#modalForExam').modal('hide');
-      refreshDiv();
-      $('#addQuestionFrm')[0].reset();
+    ).then((result) => {
+      if (result.value) {
+      window.location.reload();
+      }
+    })
   }else if(add_question_res.res == "error"){
     Swal.fire(
       'Error',

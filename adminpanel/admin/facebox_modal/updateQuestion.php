@@ -134,7 +134,7 @@
              <?php }else{ ?>
               <div class="form-group">
                 <label><b>Correct Answer: </b></label>
-                <input type="" name="up_correctAnswer" id="" class="form-control" placeholder="Input correct answer" autocomplete="off" required>
+                <input type="" name="up_correctAnswer" id="" class="form-control" placeholder="Input correct answer" autocomplete="off" required value="<?=$selCourse['exam_answer']?>">
               </div>
             <?php }
              

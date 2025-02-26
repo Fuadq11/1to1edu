@@ -22,9 +22,9 @@ if(isset($act) && $act == "delete"){
  		echo json_encode($res);
 }else if(isset($question_id) && !empty($question_id)){
 	if($up_question_type==0){
-		$updCourse = $conn->query("UPDATE exam_question_tbl SET exam_question='$up_question',question_detail='$up_question_detail', exam_ch1='$up_choice_A', exam_ch2='$up_choice_B', exam_ch3='$up_choice_C', exam_ch4='$up_choice_D',exam_answer='$up_correctAnswer',exam_part='$up_question_for',question_type='up_question_type' WHERE eqt_id='$question_id' ");
+		$updCourse = $conn->query("UPDATE exam_question_tbl SET exam_question='$up_question',question_detail='$up_question_detail', exam_ch1='$up_choice_A', exam_ch2='$up_choice_B', exam_ch3='$up_choice_C', exam_ch4='$up_choice_D',exam_answer='$up_correctAnswer',exam_part='$up_question_for',question_type='$up_question_type' WHERE eqt_id='$question_id' ");
 	}else if($up_question_type==1){
-		$updCourse = $conn->query("UPDATE exam_question_tbl SET exam_question='$up_question',question_detail='$up_question_detail', exam_ch1='', exam_ch2='', exam_ch3='', exam_ch4='',exam_answer='$up_correctAnswer',exam_part='$up_question_for',question_type='up_question_type' WHERE eqt_id='$question_id' ");
+		$updCourse = $conn->query("UPDATE exam_question_tbl SET exam_question='$up_question',question_detail='$up_question_detail', exam_ch1='', exam_ch2='', exam_ch3='', exam_ch4='',exam_answer='$up_correctAnswer',exam_part='$up_question_for',question_type='$up_question_type' WHERE eqt_id='$question_id' ");
 	}
 if($updCourse)
 {
