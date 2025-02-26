@@ -7,11 +7,12 @@
                 <div class="page-title-wrapper">
                     <div class="page-title-heading">
                         <div class="page-title-icon">
-                            <i class="pe-7s-car icon-gradient bg-mean-fruit">
+                            <i class="pe-7s-info icon-gradient bg-mean-fruit">
                             </i>
                         </div>
-                        <div>Analytics Dashboard
-                            <div class="page-title-subheading">This is an example dashboard created using build-in elements and components.
+                        <div>Dashboard
+                            <div class="page-title-subheading">
+                                Information about courses, exams and users
                             </div>
                         </div>
                     </div>

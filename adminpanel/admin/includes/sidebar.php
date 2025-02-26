@@ -31,7 +31,12 @@
                     </div>    <div class="scrollbar-sidebar">
                         <div class="app-sidebar__inner">
                             <ul class="vertical-nav-menu">
-                                <li class="app-sidebar__heading"><a href="home.php">Dashboards</a></li>
+                                <li class="app-sidebar__heading">  
+                                    <a href="home.php">
+                                        <i class="metismenu-icon pe-7s-home"></i> 
+                                        Dashboard
+                                    </a>
+                                </li>
 
                                 <li class="app-sidebar__heading">MANAGE COURSE</li>
                                 <li>
@@ -60,7 +65,7 @@
                                 <li class="app-sidebar__heading">MANAGE EXAM</li>
                                 <li>
                                     <a href="#">
-                                         <i class="metismenu-icon pe-7s-display2"></i>
+                                         <i class="metismenu-icon pe-7s-news-paper"></i>
                                          Exam
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
@@ -107,19 +112,19 @@
                                 <li class="app-sidebar__heading">REPORTS</li>
                                 <li>
                                     <a href="home.php?page=examinee-result">
-                                        <i class="metismenu-icon pe-7s-cup">
+                                        <i class="metismenu-icon pe-7s-note2">
                                         </i>Examinee Result
                                     </a>
                                 </li>
                               
 
-                                 <li class="app-sidebar__heading">FEEDBACKS</li>
+                                 <!-- <li class="app-sidebar__heading">FEEDBACKS</li>
                                 <li>
                                     <a href="home.php?page=feedbacks">
                                         <i class="metismenu-icon pe-7s-chat">
                                         </i>All Feedbacks
                                     </a>
-                                </li>
+                                </li> -->
                                 
                             </ul>
                         </div>

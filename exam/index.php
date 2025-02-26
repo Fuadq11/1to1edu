@@ -201,7 +201,7 @@
                     <div class="panel-body">
                       <div class="panel-body-inner">
                       <?php 
-                          $selQuest = $conn->query("SELECT * FROM exam_question_tbl WHERE exam_id='$examId' AND exam_part='$part' ORDER BY rand()");
+                          $selQuest = $conn->query("SELECT * FROM exam_question_tbl WHERE exam_id='$examId' AND exam_part='$part' ORDER BY eqt_id asc");
                           
                           if($selQuest->rowCount() > 0)
                           {

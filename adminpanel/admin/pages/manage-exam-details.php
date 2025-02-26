@@ -111,7 +111,7 @@
                   </div>
                   <div class="col-md-8">
                     <?php 
-                        $selQuest = $conn->query("SELECT * FROM exam_question_tbl WHERE exam_id='$exId' ORDER BY eqt_id desc");
+                        $selQuest = $conn->query("SELECT * FROM exam_question_tbl WHERE exam_id='$exId' ORDER BY eqt_id asc");
                     ?>
                      <div class="main-card mb-3 card">
                           <div class="card-header"><i class="header-icon lnr-license icon-gradient bg-plum-plate"> </i>Exam Question's 
