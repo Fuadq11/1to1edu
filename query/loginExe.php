@@ -6,7 +6,7 @@ session_start();
 extract($_POST);
 $username = htmlspecialchars($username);
 $pass = htmlspecialchars($pass);
-$selAcc = $conn->query("SELECT * FROM examinee_tbl WHERE exmne_email='$username' AND exmne_password='$pass'  ");
+$selAcc = $conn->query("SELECT * FROM examinee_tbl WHERE exmne_email='$username' AND exmne_password='$pass' AND exmne_status = 'active' ");
 $selAccRow = $selAcc->fetch(PDO::FETCH_ASSOC);
 
 

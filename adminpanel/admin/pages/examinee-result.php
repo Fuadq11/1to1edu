@@ -27,17 +27,24 @@
                             </thead>
                             <tbody>
                               <?php 
-                                $selExmne = $conn->query("SELECT * FROM examinee_tbl et INNER JOIN sessions ea ON et.exmne_id = ea.examin_id WHERE ea.exam_end_status = 1 ORDER BY ea.exam_id DESC,ea.session_id DESC ");
+                                $selExmne = $conn->query("SELECT *  FROM examinee_tbl et WHERE exmne_id = ANY (SELECT examin_id FROM sessions  WHERE  exam_end_status = 1) ");
+                                
                                 if($selExmne->rowCount() > 0)
-                                {   $i=$selExmne->rowCount();
+                                {   
                                     while ($selExmneRow = $selExmne->fetch(PDO::FETCH_ASSOC)) { 
-                                        $session_id = $selExmneRow['session_id'];
+                                        $eid = $selExmneRow['exmne_id'];
+                                        $selExmneSessions = $conn->query("SELECT * FROM examinee_tbl et INNER JOIN sessions ea ON et.exmne_id = ea.examin_id WHERE et.exmne_id='$eid' AND ea.exam_end_status = 1 ORDER BY ea.exam_id DESC,ea.session_id DESC ");
+                                        $i=$selExmneSessions->rowCount();
+                                        while($selExmneSession = $selExmneSessions->fetch(PDO::FETCH_ASSOC)){
+                                            
+                                        
+                                        $session_id = $selExmneSession['session_id'];
                                         ?>
                                         <tr>
                                            <td><?php echo $selExmneRow['exmne_fullname']; ?></td>
                                            <td>
                                              <?php 
-                                                $eid = $selExmneRow['exmne_id'];
+                                                
                                                 $selExName = $conn->query("SELECT * FROM exam_tbl et INNER JOIN sessions ea ON et.ex_id=ea.exam_id WHERE  ea.examin_id='$eid' ")->fetch(PDO::FETCH_ASSOC);
                                                 $exam_id = $selExName['ex_id'];
                                                 echo $selExName['ex_title'];
@@ -63,7 +70,7 @@
 
                                            </td>
                                         </tr>
-                                    <?php }
+                                    <?php }}
                                 }
                                 else
                                 { ?>
