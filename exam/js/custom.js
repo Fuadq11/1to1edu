@@ -408,7 +408,7 @@ function saveAnswer(question_id,exam_id,type){
 				data = JSON.parse(data);
 				if(data.res == "success"){
 					// success
-					alert("success");
+					// alert("success");
 				}else if(data.res == "error"){
 					alert("error");
 					//error
