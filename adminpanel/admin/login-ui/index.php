@@ -38,7 +38,7 @@
 						<div class="input-group" id="show_hide_password">
 						<input class="input100" type="password" name="pass" placeholder="Enter password">
 						<div class="input-group-addon" style="background: none;border: none;">
-							<a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+							<span href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></span>
 						</div>
 						<span class="focus-input100"></span>
 					</div>

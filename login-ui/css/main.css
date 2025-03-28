@@ -540,4 +540,8 @@ input.input100 {
   }
 }
 
+#show_hide_password span:hover{
+  color: #57b846;
+  cursor: pointer;
+}
 
