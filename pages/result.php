@@ -1,5 +1,7 @@
  <?php 
+ if(isset($_GET['id']) && empty($_GET['id'])==false && isset($_GET['s_id']) && empty($_GET['s_id'])==false){
     $examId = $_GET['id'];
+    $session_id = $_GET['s_id'];
     $selExam = $conn->query("SELECT * FROM exam_tbl WHERE ex_id='$examId' ")->fetch(PDO::FETCH_ASSOC);
 
  ?>
@@ -32,7 +34,7 @@
                 	<h5 class="card-title">Your Answer's</h5>
         			<table class="align-middle mb-0 table table-borderless table-striped table-hover" id="tableList">
                     <?php 
-                    	$selQuest = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id WHERE eqt.exam_id='$examId' AND ea.axmne_id='$exmneId' ");
+                    	$selQuest = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id WHERE eqt.exam_id='$examId' AND ea.axmne_id='$exmneId' AND ea.session_id = '$session_id' ");
                     	$i = 1;
                     	while ($selQuestRow = $selQuest->fetch(PDO::FETCH_ASSOC)) { ?>
                     		<tr>
@@ -71,7 +73,7 @@
                     <div class="widget-content-right">
                         <div class="widget-numbers text-white">
                             <?php 
-                                $selScore = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND LOWER(TRIM(eqt.exam_answer)) = LOWER(TRIM(ea.exans_answer))  WHERE ea.axmne_id='$exmneId' AND ea.exam_id='$examId' ");
+                                $selScore = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND LOWER(TRIM(eqt.exam_answer)) = LOWER(TRIM(ea.exans_answer))  WHERE ea.axmne_id='$exmneId' AND ea.exam_id='$examId' and ea.session_id = '$session_id' ");
                                 $selAllQuestions = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_tbl et ON eqt.exam_id = et.ex_id");
                                 $rightCount =$selScore->rowCount();
                                 $allquestions = $selAllQuestions->rowCount();
@@ -93,9 +95,8 @@
                     <div class="widget-content-right">
                         <div class="widget-numbers text-white">
                             <?php 
-                                $selScore = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND LOWER(TRIM(eqt.exam_answer)) = LOWER(TRIM(ea.exans_answer))  WHERE ea.axmne_id='$exmneId' AND ea.exam_id='$examId' ");
-                                $rightCount =$selScore->rowCount();
-                                
+                                $selScore = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND LOWER(TRIM(eqt.exam_answer)) = LOWER(TRIM(ea.exans_answer))  WHERE ea.axmne_id='$exmneId' AND ea.exam_id='$examId' AND ea.session_id = '$session_id' ");
+                                $rightCount =$selScore->rowCount();   
 
                             ?>
                             <span><?=$rightCount?></span>
@@ -112,3 +113,10 @@
 
     </div>
 </div>
+<?php }else{ ?>
+    <script>
+        window.location.href="index.php";
+    </script>
+
+<?php 
+} ?>

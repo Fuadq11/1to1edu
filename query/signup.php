@@ -1,5 +1,5 @@
 <?php 
- include("../../../conn.php");
+ include("../conn.php");
 
 
 extract($_POST);
@@ -12,14 +12,10 @@ if($gender == "0")
 {
 	$res = array("res" => "noGender");
 }
-else if($course == "0")
-{
-	$res = array("res" => "noCourse");
+else if(empty($email) || !isset($email)){
+	$res = array("res" => "noEmail");
+	
 }
-// else if($year_level == "0")
-// {
-// 	$res = array("res" => "noLevel");
-// }
 // else if($selExamineeFullname->rowCount() > 0)
 // {
 // 	$res = array("res" => "fullnameExist", "msg" => $fullname);
@@ -30,7 +26,7 @@ else if($selExamineeEmail->rowCount() > 0)
 }
 else
 {
-	$insData = $conn->query("INSERT INTO examinee_tbl(exmne_fullname,exmne_course,exmne_gender,exmne_birthdate,exmne_email,exmne_password,exmne_status) VALUES('$fullname','$course','$gender','$bdate','$email','$password','$exmneStatus')  ");
+	$insData = $conn->query("INSERT INTO examinee_tbl(exmne_fullname,exmne_course,exmne_gender,exmne_birthdate,exmne_email,exmne_password,exmne_status) VALUES('$fullname','-1','$gender','$bdate','$email','$password','pending')  ");
 	if($insData)
 	{
 		$res = array("res" => "success", "msg" => $email);

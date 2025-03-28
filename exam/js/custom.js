@@ -48,6 +48,40 @@ function nextQuestion() {
 	if (newQuestion <= totalQuestions) { showOnlyQuestion(newQuestion); };
 	if($("#examEndPart").val()==2){
 		if(activeQuestion == totalQuestions){
+			let ex_part = $("#examPart").val();
+			if(ex_part==4){
+				Swal.fire({
+					title: 'Exam ended!',
+					text: "Your answers successfully saved!",
+					icon: 'success',
+					allowOutsideClick: false,
+					confirmButtonColor: '#3085d6',
+					confirmButtonText: 'Exit'
+				}).then((result) => {
+				if (result.value) {
+					$.ajax({
+						url: "query/endExamPart.php",
+						method: "post",
+						data: {act:"end",exam_id:exam_id},
+						dataType: "json",
+						success: function(data){
+							if(data.status=="success"){
+								window.location.href='../index.php';
+							}else{
+								window.location.reload();
+							}
+						},
+						error: function(data){
+							window.location.reload();
+						}
+					})
+				   
+				}
+		
+				});
+			}else{
+
+			
 			Swal.fire({
 				title: 'This module ended',
 				text: "Your answers successfully saved!",
@@ -62,6 +96,7 @@ function nextQuestion() {
 			}
 
 			});
+		}
 	}
 }
 
@@ -259,7 +294,7 @@ function updateCountdown() {
 
 				if(data.examstatus==1){
 					Swal.fire({
-						title: 'Current Module ended!',
+						title: 'Current Module 1 ended!',
 						text: "Your answers successfully saved!",
 						icon: 'success',
 						allowOutsideClick: false,
@@ -276,7 +311,7 @@ function updateCountdown() {
 					
 
 					Swal.fire({
-						title: 'Current Section ended',
+						title: 'Current Section 1 ended',
 						text: "Your answers successfully saved!",
 						icon: 'success',
 						allowOutsideClick: false,
@@ -291,7 +326,7 @@ function updateCountdown() {
 					});
 				}else if(data.examstatus==3){
 						Swal.fire({
-							title: 'Current Module ended!',
+							title: 'Current Module 2 ended!',
 							text: "Your answers successfully saved!",
 							icon: 'success',
 							allowOutsideClick: false,
@@ -373,7 +408,7 @@ function saveAnswer(question_id,exam_id,type){
 				data = JSON.parse(data);
 				if(data.res == "success"){
 					// success
-					// alert("success");
+					alert("success");
 				}else if(data.res == "error"){
 					alert("error");
 					//error

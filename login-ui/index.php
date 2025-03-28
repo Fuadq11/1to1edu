@@ -35,16 +35,23 @@
 
 					<div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
 						<span class="label-input100">Password</span>
+						<div class="input-group" id="show_hide_password">
 						<input class="input100" type="password" name="pass" placeholder="Enter password">
+						<div class="input-group-addon" style="background: none;border: none;">
+							<a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+						</div>
 						<span class="focus-input100"></span>
 					</div>
+						</div>
 
-
-					<div class="container-login100-form-btn" align="right">
-						<button type="submit" class="login100-form-btn">
-							Login
-						</button>
+				
+						<div class="container-login100-form-btn" align="right">
+							<button type="submit" class="login100-form-btn">
+								Login
+							</button>
+							
 					</div>
+					
 				</form>
 			</div>
 		</div>
@@ -59,6 +66,6 @@
 	<script src="login-ui/vendor/daterangepicker/daterangepicker.js"></script>
 	<script src="login-ui/vendor/countdowntime/countdowntime.js"></script>
 	<script src="login-ui/js/main.js"></script>
-
+	
 </body>
 </html>

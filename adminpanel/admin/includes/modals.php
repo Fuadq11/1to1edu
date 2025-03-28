@@ -180,7 +180,7 @@
                ?>
             </select>
           </div>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label>Year Level</label>
             <select class="form-control" name="year_level" id="year_level">
               <option value="0">Select year level</option>
@@ -189,7 +189,7 @@
               <option value="third year">Third Year</option>
               <option value="fourth year">Fourth Year</option>
             </select>
-          </div>
+          </div> -->
           <div class="form-group">
             <label>Email</label>
             <input type="email" name="email" id="email" class="form-control" placeholder="Input Email" autocomplete="off" required="">
@@ -198,6 +198,11 @@
             <label>Password</label>
             <input type="password" name="password" id="password" class="form-control" placeholder="Input Password" autocomplete="off" required="">
           </div>
+          <select name="exmneStatus" id="" class="form-control">
+            <option value="active" selected>active</option>
+            <option value="deactive" >deactive</option>
+            <option value="pending" >pending</option>
+          </select>
         </div>
       </div>
       <div class="modal-footer">

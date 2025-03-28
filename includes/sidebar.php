@@ -84,16 +84,19 @@
                  <li class="app-sidebar__heading">TAKEN EXAM'S</li>
                 <li>
                   <?php 
-                    $selTakenExam = $conn->query("SELECT * FROM exam_tbl et INNER JOIN exam_attempt ea ON et.ex_id = ea.exam_id WHERE exmne_id='$exmneId' ORDER BY ea.examat_id  ");
+                    $selTakenExam = $conn->query("SELECT * FROM exam_tbl et INNER JOIN sessions ea ON et.ex_id = ea.exam_id WHERE examin_id='$exmneId' AND ea.exam_end_status = 1 ORDER BY ea.session_id DESC  ");
 
                     if($selTakenExam->rowCount() > 0)
                     {
+                        $i=$selTakenExam->rowCount();
                         while ($selTakenExamRow = $selTakenExam->fetch(PDO::FETCH_ASSOC)) { ?>
-                            <a href="home.php?page=result&id=<?php echo $selTakenExamRow['ex_id']; ?>" >
+                            <a href="home.php?page=result&id=<?=$selTakenExamRow['ex_id']?>&s_id=<?=$selTakenExamRow['session_id']?>" >
                                
-                                <?php echo $selTakenExamRow['ex_title']; ?>
+                                <?php echo $selTakenExamRow['ex_title'].' Result '.$i; ?>
                             </a>
-                        <?php }
+                        <?php 
+                            $i--;
+                        }
                     }
                     else
                     { ?>

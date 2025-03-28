@@ -34,6 +34,7 @@
         echo "<h1>Error 404. Page not found</h1>";
      }else{
         $examId = $_GET['id'];
+        $session_id = null;
      }
     $selExamQuery = $conn->query("SELECT * FROM exam_tbl WHERE ex_id='$examId' ");
     if($selExamQuery->rowCount()>0){
@@ -43,14 +44,17 @@
     $_SESSION['examSession']['end_type'] = $selExam['exam_end_type'];
     $_SESSION['examSession']['part'] = $part;
     //  $queryExamAtmp = $conn->query("SELECT * FROM exam_attempt WHERE exam_id='$examId' AND exmne_id = '$exmne_id'");
-     $queryExamSession = $conn->query("SELECT * FROM sessions WHERE exam_id='$examId' AND examin_id = '$exmne_id'");
+     $queryExamSession = $conn->query("SELECT * FROM sessions WHERE exam_id='$examId' AND examin_id = '$exmne_id' and exam_end_status=0 ORDER BY session_id DESC LIMIT 1");
     //  $checkExamAtmp = $queryExamAtmp->fetch(PDO::FETCH_ASSOC);
      $checkExamSession = $queryExamSession->fetch(PDO::FETCH_ASSOC);
      if($queryExamSession->rowCount()>0){
       $part = $checkExamSession['current_part'];
+      $session_id = $checkExamSession['session_id'];
      }  
-    
+     
      if($part == 5){
+      $sql = $conn->query("UPDATE sessions SET exam_end_status = 1 
+      WHERE exam_id = '$examId' AND examin_id = '$exmne_id' AND exam_end_status=0");
       ?>
       <script>window.location.href="../index.php";</script>
     <?php }else{
@@ -61,7 +65,7 @@
       $selExamTimeLimit = null;
       
       //  Select Exam time limit
-      $queryExamTime = $conn->query("SELECT * FROM sessions WHERE exam_id='$examId' AND examin_id = '$exmne_id' ");
+      $queryExamTime = $conn->query("SELECT * FROM sessions WHERE exam_id='$examId' AND examin_id = '$exmne_id' and exam_end_status=0");
       if($queryExamTime->rowCount()>0){
         $selExamTime =  $queryExamTime->fetch(PDO::FETCH_ASSOC);
         if($part == 1){
@@ -69,21 +73,21 @@
             }else if($part == 2){
               if($selExamTime['en_time_2']==null){
                 $current_time = current_date($en_time_2);
-                $insertExamTime = $conn->query("UPDATE sessions SET en_time_2 = ('$current_time') WHERE exam_id = '$examId'AND examin_id = '$exmne_id'");
+                $insertExamTime = $conn->query("UPDATE sessions SET en_time_2 = ('$current_time') WHERE exam_id = '$examId'AND examin_id = '$exmne_id' and exam_end_status=0");
               }else{
                 $selExamTimeLimit = $selExamTime['en_time_2'];
               }
             }else if($part == 3){
               if($selExamTime['math_time']==null){
                 $current_time = current_date($math_time);
-                $insertExamTime = $conn->query("UPDATE sessions SET math_time = ('$current_time') WHERE exam_id = '$examId'AND examin_id = '$exmne_id'");
+                $insertExamTime = $conn->query("UPDATE sessions SET math_time = ('$current_time') WHERE exam_id = '$examId'AND examin_id = '$exmne_id'  and exam_end_status=0");
               }else{
                 $selExamTimeLimit = $selExamTime['math_time'];
               }
             } else if($part == 4){
               if($selExamTime['math_time_2']==null){
                 $current_time = current_date($math_time_2);
-                $insertExamTime = $conn->query("UPDATE sessions SET math_time_2 = ('$current_time') WHERE exam_id = '$examId'AND examin_id = '$exmne_id'");
+                $insertExamTime = $conn->query("UPDATE sessions SET math_time_2 = ('$current_time') WHERE exam_id = '$examId'AND examin_id = '$exmne_id'  and exam_end_status=0");
               }else{
                 $selExamTimeLimit = $selExamTime['math_time_2'];
               }
@@ -209,6 +213,19 @@
                           while ($selQuestRow = $selQuest->fetch(PDO::FETCH_ASSOC)) { ?>
                       <?php $questId = $selQuestRow['eqt_id']; 
                             $selQuestImgs = $conn->query("SELECT * FROM question_images WHERE question_id='$questId' ");
+                            $currentAns = "";
+                            $selQuestAnsw = $conn->query("SELECT * FROM exam_answers WHERE quest_id='$questId' AND exam_id = '$examId' AND axmne_id = '$exmne_id' AND session_id = '$session_id' ");
+                            if($selQuestAnsw->rowCount()>0){
+                              $currentAns = $selQuestAnsw->fetch(PDO::FETCH_ASSOC)['exans_answer'];
+                            }
+                            $ans=['a'=>"",'b'=>"",'c'=>"",'d'=>""];
+                            switch($currentAns){
+                              case 'a': $ans['a']="selected-answer";break;
+                              case 'b': $ans['b']="selected-answer";break;
+                              case 'c': $ans['c']="selected-answer";break;
+                              case 'd': $ans['d']="selected-answer";break;
+                              default: $ans['df'] = $currentAns;
+                            }
                       ?>
                       <!-- Question begins -->
                         <div class="row question" data-questionnumber="<?=$question_number?>" data-questionid="<?=$question_number?>" data-questiontype="<?=$selQuestRow['question_type']?>">
@@ -237,24 +254,25 @@
                             </div>
                             <?php
                                 if($selQuestRow['question_type']==0){
+                                 
                             ?>
                             <div class="option-items" onclick="">
-                                <div class="question_answer" onclick="" data-question-id="<?=$questId?>" data-answer-value="a">
+                                <div class="question_answer <?=$ans['a']?>" onclick="" data-question-id="<?=$questId?>" data-answer-value="a">
                                 <div class="abcde text-capitalize">a</div>
                                 <div class="question-option"><p></p><p><?=$selQuestRow['exam_ch1']?></p>
                                 </div>
                               </div>
-                                <div class="question_answer" onclick="" data-question-id="<?=$questId?>" data-answer-value="b">
+                                <div class="question_answer <?=$ans['b']?>" onclick="" data-question-id="<?=$questId?>" data-answer-value="b">
                                 <div class="abcde text-capitalize">b</div>
                                 <div class="question-option"><p></p><p><?=$selQuestRow['exam_ch2']?></p>
                               </div>
                               </div>
-                                <div class="question_answer" onclick="" data-question-id="<?=$questId?>" data-answer-value="c">
+                                <div class="question_answer <?=$ans['c']?>" onclick="" data-question-id="<?=$questId?>" data-answer-value="c">
                                 <div class="abcde text-capitalize">c</div>
                                 <div class="question-option"><p></p><p><?=$selQuestRow['exam_ch3']?></p>
                                 </div>
                               </div>
-                              <div class="question_answer" onclick="" data-question-id="<?=$questId?>" data-answer-value="d">
+                              <div class="question_answer <?=$ans['d']?>" onclick="" data-question-id="<?=$questId?>" data-answer-value="d">
                                 <div class="abcde text-capitalize">d</div>
                                 <div class="question-option"><p></p><p><?=$selQuestRow['exam_ch4']?></p>
                                 </div>
@@ -270,7 +288,7 @@
                             <?php }else{ ?>
                               <div class="open-question-asnwer my-4">
                                 <label>Answer: </label>
-                                  <input type="text" name="question[<?=$questId?>]" >
+                                  <input type="text" name="question[<?=$questId?>]" value="<?=$ans['df']?>" >
                               </div>
 
                          <?php   } ?>

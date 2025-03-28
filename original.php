@@ -1372,3 +1372,12 @@
     </div>
 <script type="text/javascript" src="./assets/scripts/main.js"></script></body>
 </html>
+
+<div class="elementskit-timer-container elementskit-days">
+    <div class="elementskit-inner-container ekit-countdown-inner">
+        <div class="elementskit-timer-content">
+            <span class="elementskit-timer-count">83 </span>
+            <span class="elementskit-timer-title">Gün</span>
+        </div>
+    </div>
+</div>

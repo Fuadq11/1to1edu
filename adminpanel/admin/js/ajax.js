@@ -446,8 +446,16 @@ $(document).on("submit","#addExamineeFrm" , function(){
           'Success',
           data.msg + ' are now successfully added',
           'success'
-       )
-        refreshDiv();
+       ).then((result) => {
+        if (result.value) {
+          setTimeout(() => {
+            window.location.reload();
+          }, 300);
+         
+        }})
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
         $('#addExamineeFrm')[0].reset();
     }
     else if(data.res == "failed")
@@ -476,8 +484,17 @@ $(document).on("submit","#updateExamineeFrm" , function(){
             'Success',
             data.exFullname + ' <br>has been successfully updated!',
             'success'
-          )
-          refreshDiv();
+          ).then((result) => {
+            if (result.value) {
+              setTimeout(() => {
+                window.location.reload();
+              }, 300);
+             
+            }})
+            setTimeout(() => {
+              window.location.reload();
+            }, 3000);
+          
      }
   },'json')
   return false;

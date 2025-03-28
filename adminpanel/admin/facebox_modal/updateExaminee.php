@@ -48,10 +48,7 @@
          </select>
      </div>
 
-     <div class="form-group">
-        <legend>Year level</legend>
-        <input type="" name="exYrlvl" class="form-control" required="" value="<?php echo $selExmne['exmne_year_level']; ?>" >
-     </div>
+     
 
      <div class="form-group">
         <legend>Email</legend>
@@ -66,7 +63,26 @@
      <div class="form-group">
         <legend>Status</legend>
         <input type="hidden" name="course_id" value="<?php echo $id; ?>">
-        <input type="" name="newCourseName" class="form-control" required="" value="<?php echo $selExmne['exmne_status']; ?>" >
+        <select name="exmneStatus" id="" class="form-control">
+
+            <?php 
+            $select_active='';
+            $select_deactive='';
+            $select_pending='';
+                     if($selExmne['exmne_status'] == "active"){
+                        $select_active="selected";
+                     }else if($selExmne['exmne_status'] == "pending"){
+                        $select_pending='selected'; 
+                     }else{
+                        $select_deactive='selected';
+                     }
+               
+            ?>
+            <option value="active" <?=$select_active?>>active</option>
+            <option value="deactive" <?=$select_deactive?>>deactive</option>
+            <option value="pending" <?=$select_pending?>>pending</option>
+        </select>
+        <!-- <input type="" name="newCourseName" class="form-control" required="" value="" > -->
      </div>
   <div class="form-group" align="right">
     <button type="submit" class="btn btn-sm btn-primary">Update Now</button>

@@ -13,7 +13,8 @@ if(isset($act) && empty($act)==false && $act == 'exams'){
 $selExmneeData = $conn->query("SELECT * FROM examinee_tbl WHERE exmne_id='$examin_id' ")->fetch(PDO::FETCH_ASSOC);
 $exmneCourse =  $selExmneeData['exmne_course'];
     // echo "<option>Select Category</option>";
-$res= $conn->query("select * from exam_tbl WHERE exam_type = '$exam_type' and cou_id = '$exmneCourse' and status = 1 and ex_id not in (SELECT exam_id FROM exam_attempt WHERE exmne_id = '$examin_id') order by ex_id desc"); 
+// $res= $conn->query("select * from exam_tbl WHERE exam_type = '$exam_type' and cou_id = '$exmneCourse' and status = 1 and ex_id not in (SELECT exam_id FROM exam_attempt WHERE exmne_id = '$examin_id') order by ex_id desc"); 
+$res= $conn->query("select * from exam_tbl WHERE exam_type = '$exam_type' and cou_id = '$exmneCourse' and status = 1  order by ex_id desc"); 
         if($res->rowCount()>0){
             while($data=$res->fetch(PDO::FETCH_ASSOC))
             {

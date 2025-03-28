@@ -14,7 +14,8 @@
 
                    
 
-                   $selExmne = $conn->query("SELECT * FROM examinee_tbl et  WHERE exmne_course='$exam_course'  ");
+                   $selExmne = $conn->query("SELECT * FROM examinee_tbl et  WHERE et.exmne_course='$exam_course' ");
+                  
 
 
                    ?>
@@ -38,16 +39,32 @@
                             <thead>
                                 <tr>
                                     <th width="25%">Examinee Fullname</th>
+                                    <th>Attempt</th>
                                     <th>Score</th>
                                     <th>Correct / Over</th>
                                 </tr>
                             </thead>
                             <?php 
-                                while ($selExmneRow = $selExmne->fetch(PDO::FETCH_ASSOC)) { ?>
-                                    <?php 
-                                            $exmneId = $selExmneRow['exmne_id'];
+                                while ($selExmneRow = $selExmne->fetch(PDO::FETCH_ASSOC)) { 
+                                    $exmneId = $selExmneRow['exmne_id'];
+                                    $selExmneSessions = $conn->query("SELECT * FROM  sessions WHERE examin_id='$exmneId' AND exam_id = '$exam_id' AND exam_end_status = 1 ORDER BY session_id DESC ");
+                                    if($selExmneSessions->rowCount()==0){ ?>
+                                        <tr style="background-color: #E9ECEE;color:black">
+                                            <td><?=$selExmneRow['exmne_fullname'];?></td>
+                                            <td colspan="4">Didn't take exam</td>
+                                        </tr>
 
-                                            $selScore = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND LOWER(TRIM(eqt.exam_answer)) = LOWER(TRIM(ea.exans_answer))  WHERE ea.axmne_id='$exmneId' AND ea.exam_id='$exam_id' ORDER BY ea.exans_id DESC ");
+                                    <?php }else{
+                                        $i=$selExmneSessions->rowCount();
+                                    while ($selExmneSession = $selExmneSessions->fetch(PDO::FETCH_ASSOC)) { 
+                                        
+                                    $session_id = $selExmneSession['session_id'];
+                                    
+                                    ?>
+                                    <?php 
+                                            
+
+                                            $selScore = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND LOWER(TRIM(eqt.exam_answer)) = LOWER(TRIM(ea.exans_answer))  WHERE ea.axmne_id='$exmneId' AND ea.exam_id='$exam_id' AND ea.session_id = '$session_id' ORDER BY ea.exans_id DESC ");
                                             $selAllQuestions = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_tbl et ON eqt.exam_id = et.ex_id");
                                             $rightAnswers =$selScore->rowCount();
                                             $allquestions = $selAllQuestions->rowCount();
@@ -56,17 +73,12 @@
                                            
                                             // $selScore = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND eqt.exam_answer = ea.exans_answer  WHERE ea.axmne_id='$exmneId' AND ea.exam_id='$exam_id' AND ea.exans_status='new' ORDER BY ea.exans_id DESC");
 
-                                            $selAttempt = $conn->query("SELECT * FROM exam_attempt WHERE exmne_id='$exmneId' AND exam_id='$exam_id' ");
-
-                                          
+                                        
 
                                          ?>
                                        <tr style="<?php 
-                                             if($selAttempt->rowCount() == 0)
-                                             {
-                                                echo "background-color: #E9ECEE;color:black";
-                                             }
-                                             else if($score >= 1400)
+                                             
+                                            if($score >= 1400)
                                              {
                                                 echo "background-color: yellow;";
                                              } 
@@ -85,45 +97,25 @@
                                              ?>"
                                         >
                                         <td>
-
-                                          <?php echo $selExmneRow['exmne_fullname']; ?></td>
-                                        
-                                        <td >
-                                        <?php 
-                                          if($selAttempt->rowCount() == 0)
-                                          {
-                                            echo "Didn't take exam";
-                                          }
-                                          else if($selScore->rowCount() > 0)
-                                          {
-                                            
-                                            echo $score;
-                                          }
-                                          else
-                                          {
-                                            echo "Not found";
-                                          }
-
-                                            
-                                            
-
+                                          <?php echo $selExmneRow['exmne_fullname']; ?>
+                                        </td>
+                                        <td>
+                                            <?=$i--?>
+                                        </td>
+                                        <td>
+                                        <?php                                         
+                                            echo $score;                 
                                          ?>
                                         </td>
                                         <td>
-                                          <?php 
-                                                if($selAttempt->rowCount() == 0)
-                                                {
-                                                  echo "Didn't take exam";
-                                                }
-                                                else
-                                                {
-                                                    echo $rightAnswers." / ".$allquestions; ?><?php
-                                                }
-                                           
-                                          ?>
+                                          <?php        
+                                            echo $rightAnswers." / ".$allquestions; ?>
                                         </td>
                                     </tr>
-                                <?php }
+                                <?php       } // end of examin sessions
+                                        } // session check end
+                                    }
+                                        // end of one examin 
                              ?>                              
                           </tbody>
                         </table>
