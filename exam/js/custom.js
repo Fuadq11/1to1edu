@@ -15,12 +15,12 @@ function showOnlyQuestion(number) {
 	allquestions.removeClass("active");
 	thisquestion.show();
 	thisquestion.addClass("active");
-	$('.bottombar-highlight').removeClass('bottombar-highlight');
-	$(".bottombar-questions[data-questionnumber='" + number + "']").addClass('bottombar-highlight');
+	// $('.bottombar-highlight').removeClass('bottombar-highlight');
+	// $(".bottombar-questions[data-questionnumber='" + number + "']").addClass('bottombar-highlight');
 
 	//Start/resume the appropriate watch and set its listener to update
 	//every second
-	$("#current-question").html(number);
+	$("#current-question").html(number+1);
 	updateButtons();
 }
 
@@ -45,9 +45,9 @@ function nextQuestion() {
 
 	var activeQuestion = $(".question.active").data("questionnumber");
 	var newQuestion = activeQuestion + 1;
-	if (newQuestion <= totalQuestions) { showOnlyQuestion(newQuestion); };
+	if (newQuestion < totalQuestions) { showOnlyQuestion(newQuestion); };
 	if($("#examEndPart").val()==2){
-		if(activeQuestion == totalQuestions){
+		if(activeQuestion == totalQuestions-1){
 			let ex_part = $("#examPart").val();
 			if(ex_part==4){
 				Swal.fire({
@@ -105,7 +105,7 @@ function nextQuestion() {
 function previousQuestion() {
 	var activeQuestion = $(".question.active").data("questionnumber");
 	var newQuestion = activeQuestion - 1;
-	if (newQuestion >= 1) { showOnlyQuestion(newQuestion); }
+	if (newQuestion >= 0) { showOnlyQuestion(newQuestion); }
 }
 
 function updateButtons() {
@@ -123,7 +123,7 @@ function updateButtons() {
 
 	}
 
-	if (activeQuestion == 1) {
+	if (activeQuestion == 0) {
 		$(".previousButton").hide();
 	}
 	else {
@@ -277,7 +277,67 @@ $(document).ready(function () {
 
 	// }
 
+
+	// answered question markup 
+	question_markup();
+
 });
+function question_markup(){
+	$.ajax({
+		url: "query/ansQuestionMark.php",
+		method: "post",
+		data:{act:"selectQuestions"},
+		dataType: "json",
+		success: function(data){
+			if(data.status=="success"){
+				$(".bottombar-questions").each(function(){
+					// console.log(data);
+					if(data.questionIds.includes(Number($( this ).attr("data-question")))){
+						$( this ).addClass("bottombar-highlight");
+					}
+				})
+			}else{
+				console.log("error");
+			}
+			
+			
+		}
+	})
+}
+	// end of question markup
+// save question answer
+function saveAnswer(question_id,exam_id,type){
+	let answer = null;
+	if(type==0){
+		answer = $(`input[name='question[${question_id}]']:checked`).val();
+	}else if(type==1){
+		answer = $(`input[name='question[${question_id}]']`).val();
+	}
+	 if(answer!=null){
+		$.ajax({
+			url: '../query/saveAnswer.php',
+			method: "post",
+			data: {act:"save",question_id:question_id,exam_id:exam_id,answer:answer},
+			success: function(data){
+				data = JSON.parse(data);
+				if(data.res == "success"){
+					// success
+					// alert("success");
+					question_markup();
+				}else if(data.res == "error"){
+					alert("error");
+					//error
+				}else{
+					alert("error");
+				}
+			},
+			error: function(data){
+				alert("error");
+			}
+		})
+	 }
+	
+}
 
 function updateCountdown() {
     $.ajax({
@@ -391,38 +451,7 @@ updateCountdown();
 //   }
 // }, 1000);
 
-// save question answer
-function saveAnswer(question_id,exam_id,type){
-	let answer = null;
-	if(type==0){
-		answer = $(`input[name='question[${question_id}]']:checked`).val();
-	}else if(type==1){
-		answer = $(`input[name='question[${question_id}]']`).val();
-	}
-	 if(answer!=null){
-		$.ajax({
-			url: '../query/saveAnswer.php',
-			method: "post",
-			data: {act:"save",question_id:question_id,exam_id:exam_id,answer:answer},
-			success: function(data){
-				data = JSON.parse(data);
-				if(data.res == "success"){
-					// success
-					// alert("success");
-				}else if(data.res == "error"){
-					alert("error");
-					//error
-				}else{
-					alert("error");
-				}
-			},
-			error: function(data){
-				alert("error");
-			}
-		})
-	 }
-	
-}
+
 
 
 /////////////////////////////////////////////////////////////////////////

@@ -40,8 +40,10 @@
                                 <tr>
                                     <th width="25%">Examinee Fullname</th>
                                     <th>Attempt</th>
-                                    <th>Score</th>
-                                    <th>Correct / Over</th>
+                                    <th>Reading and Writing Score</th>
+                                    <th>Math Score</th>
+                                    <th>Reading and Writing (Correct / Over)</th>
+                                    <th>Math (Correct / Over)</th>
                                 </tr>
                             </thead>
                             <?php 
@@ -64,28 +66,34 @@
                                     <?php 
                                             
 
-                                            $selScore = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND LOWER(TRIM(eqt.exam_answer)) = LOWER(TRIM(ea.exans_answer))  WHERE ea.axmne_id='$exmneId' AND ea.exam_id='$exam_id' AND ea.session_id = '$session_id' ORDER BY ea.exans_id DESC ");
-                                            $selAllQuestions = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_tbl et ON eqt.exam_id = et.ex_id");
-                                            $rightAnswers =$selScore->rowCount();
-                                            $allquestions = $selAllQuestions->rowCount();
-                                            $score = ($rightAnswers / $allquestions) * 800;
-                                            $score = ceil($score / 10) * 10;
+                                            $selMathScore = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND LOWER(TRIM(eqt.exam_answer)) = LOWER(TRIM(ea.exans_answer))  WHERE eqt.exam_part in (3,4) AND ea.axmne_id='$exmneId' AND ea.exam_id='$exam_id' AND ea.session_id = '$session_id' ORDER BY ea.exans_id DESC ");
+                                            $selEnScore = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND LOWER(TRIM(eqt.exam_answer)) = LOWER(TRIM(ea.exans_answer))  WHERE eqt.exam_part in (1,2) AND ea.axmne_id='$exmneId' AND ea.exam_id='$exam_id' AND ea.session_id = '$session_id' ORDER BY ea.exans_id DESC ");
+                                            $selAllMathQuestions = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_tbl et ON eqt.exam_id = et.ex_id WHERE eqt.exam_part in (3,4)");
+                                            $selAllEnQuestions = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_tbl et ON eqt.exam_id = et.ex_id WHERE eqt.exam_part in (1,2)");
+                                            $rightMathAnswers =$selMathScore->rowCount();
+                                            $rightEnAnswers =$selEnScore->rowCount();
+                                            $allMathquestions = $selAllMathQuestions->rowCount();
+                                            $allEnquestions = $selAllEnQuestions->rowCount();
+                                            $math_score = ($rightMathAnswers / $allMathquestions) * 800;
+                                            $math_score = 200+ ceil($math_score / 10) * 10;
+                                            $en_score = ($rightEnAnswers / $allEnquestions) * 800;
+                                            $en_score = 200+ ceil($en_score / 10) * 10;
                                            
                                             // $selScore = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND eqt.exam_answer = ea.exans_answer  WHERE ea.axmne_id='$exmneId' AND ea.exam_id='$exam_id' AND ea.exans_status='new' ORDER BY ea.exans_id DESC");
 
-                                        
+                                            $total_score = $en_score+$math_score;
 
                                          ?>
                                        <tr style="<?php 
                                              
-                                            if($score >= 1400)
+                                            if($total_score >= 1400)
                                              {
                                                 echo "background-color: yellow;";
                                              } 
-                                             else if($score >= 1200){
+                                             else if($total_score >= 1200){
                                                 echo "background-color: green;color:white";
                                              }
-                                             else if($score >= 800){
+                                             else if($total_score >= 800){
                                                 echo "background-color: blue;color:white";
                                              }
                                              else
@@ -104,12 +112,21 @@
                                         </td>
                                         <td>
                                         <?php                                         
-                                            echo $score;                 
+                                            echo $en_score;                 
+                                         ?>
+                                        </td>
+                                        <td>
+                                        <?php                                         
+                                            echo $math_score;                 
                                          ?>
                                         </td>
                                         <td>
                                           <?php        
-                                            echo $rightAnswers." / ".$allquestions; ?>
+                                            echo $rightEnAnswers." / ".$allEnquestions; ?>
+                                        </td>
+                                        <td>
+                                          <?php        
+                                            echo $rightMathAnswers." / ".$allMathquestions; ?>
                                         </td>
                                     </tr>
                                 <?php       } // end of examin sessions

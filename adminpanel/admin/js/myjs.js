@@ -144,7 +144,7 @@ let up_multiple_choice =`<div class="form-group">
 }
 
 
-function generatePDF(fullname,exam_title,score) {
+function generatePDF(fullname,exam_title,math_score,en_score) {
     // Import jsPDF
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
@@ -156,12 +156,14 @@ function generatePDF(fullname,exam_title,score) {
 
     // Table Headers
     doc.setFontSize(18);
-    doc.text("Full Name: ", 20, 40);
-    doc.text("Exam Title: ", 20, 60);
-    doc.text("Score: ", 20, 80);
+    doc.text("Full Name: "+fullname, 20, 40);
+    doc.text("Exam Title: "+exam_title, 20, 60);
+    doc.text("Reading and Writing Score: "+en_score, 20, 80);
+    doc.text("Math Score: "+math_score, 20, 100);
     doc.setFont("helvetica", "normal");
-            doc.text(fullname, 60, 40);
-            doc.text(exam_title, 60, 60);
-            doc.text(score, 60, 80);
+            // doc.text(fullname, 60, 40);
+            // doc.text(exam_title, 60, 60);
+            // doc.text(math_score, 60, 80);
+            // doc.text(en_score, 60, 100);
     doc.save(fullname+" Exam_Results.pdf");
 }

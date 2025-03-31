@@ -35,11 +35,12 @@
      }else{
         $examId = $_GET['id'];
         $session_id = null;
+        $_SESSION['examineeSession']['session_id']= $session_id;
      }
     $selExamQuery = $conn->query("SELECT * FROM exam_tbl WHERE ex_id='$examId' ");
     if($selExamQuery->rowCount()>0){
     $selExam = $selExamQuery->fetch(PDO::FETCH_ASSOC);    
-    $question_number = 1;
+    $question_number = 0;
     $part = 1;
     $_SESSION['examSession']['end_type'] = $selExam['exam_end_type'];
     $_SESSION['examSession']['part'] = $part;
@@ -50,6 +51,7 @@
      if($queryExamSession->rowCount()>0){
       $part = $checkExamSession['current_part'];
       $session_id = $checkExamSession['session_id'];
+      $_SESSION['examineeSession']['session_id']= $session_id;
      }  
      
      if($part == 5){
@@ -100,7 +102,7 @@
         }
         
         $selPartName = $conn->query("SELECT * FROM sat_exam_parts WHERE exam_part_id = '$part'")->fetch(PDO::FETCH_ASSOC);
-
+        $questinIds = [];
 
       
  ?>
@@ -212,6 +214,7 @@
                               $total_question = $selQuest->rowCount();
                           while ($selQuestRow = $selQuest->fetch(PDO::FETCH_ASSOC)) { ?>
                       <?php $questId = $selQuestRow['eqt_id']; 
+                            array_push($questinIds,$questId);
                             $selQuestImgs = $conn->query("SELECT * FROM question_images WHERE question_id='$questId' ");
                             $currentAns = "";
                             $selQuestAnsw = $conn->query("SELECT * FROM exam_answers WHERE quest_id='$questId' AND exam_id = '$examId' AND axmne_id = '$exmne_id' AND session_id = '$session_id' ");
@@ -317,13 +320,14 @@
               <!-- <div class="nextButton">Next</div> -->
               <div class="pagination-wrapper nopadding">
                 <ul class="pagination">
-                    <li class="bottombar-questions bottombar-highlight" data-questionid="1" data-questionnumber="1" onclick="showOnlyQuestion(1)">1</li>
+                    <!-- <li class="bottombar-questions bottombar-highlight" data-questionid="1" data-questionnumber="1" onclick="showOnlyQuestion(1)">1</li> -->
                       
                     <?php if($total_question>0){
-                      $j=2;
-                      while($j<=$total_question){
+                     
+                      $j=0;
+                      while($j<$total_question){
                       ?>
-                    <li class="bottombar-questions" data-questionid="<?=$j?>" data-questionnumber="<?=$j?>" onclick="showOnlyQuestion(<?=$j?>)"><?=$j?></li>
+                      <li class="bottombar-questions" data-question="<?=$questinIds[$j]?>" data-questionid="<?=$j?>" data-questionnumber="<?=$j?>" onclick="showOnlyQuestion(<?=$j?>)"><?=$j+1?></li>
 
                     <?php $j++; } }?>
                 </ul>              

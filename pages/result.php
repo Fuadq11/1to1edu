@@ -67,21 +67,41 @@
         	<div class="card mb-3 widget-content bg-night-fade">
                 <div class="widget-content-wrapper text-white">
                     <div class="widget-content-left">
-                        <div class="widget-heading"><h5>Score</h5></div>
+                        <div class="widget-heading"><h4>Reading and Writing Score</h4></div>
                         <div class="widget-subheading" style="color: transparent;">/</div>
                     </div>
                     <div class="widget-content-right">
                         <div class="widget-numbers text-white">
                             <?php 
-                                $selScore = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND LOWER(TRIM(eqt.exam_answer)) = LOWER(TRIM(ea.exans_answer))  WHERE ea.axmne_id='$exmneId' AND ea.exam_id='$examId' and ea.session_id = '$session_id' ");
-                                $selAllQuestions = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_tbl et ON eqt.exam_id = et.ex_id");
-                                $rightCount =$selScore->rowCount();
-                                $allquestions = $selAllQuestions->rowCount();
-                                $score = ($rightCount / $allquestions) * 800;
-                                $score = ceil($score / 10) * 10;
+                                $selMathScore = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND LOWER(TRIM(eqt.exam_answer)) = LOWER(TRIM(ea.exans_answer))  WHERE eqt.exam_part in (3,4) AND ea.axmne_id='$exmneId' AND ea.exam_id='$examId' and ea.session_id = '$session_id' ");
+                                $selEnScore = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND LOWER(TRIM(eqt.exam_answer)) = LOWER(TRIM(ea.exans_answer))  WHERE eqt.exam_part in (1,2) AND ea.axmne_id='$exmneId' AND ea.exam_id='$examId' and ea.session_id = '$session_id' ");
+                                $selAllMathQuestions = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_tbl et ON eqt.exam_id = et.ex_id WHERE eqt.exam_part in (3,4)");
+                                $selAllEnQuestions = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_tbl et ON eqt.exam_id = et.ex_id WHERE eqt.exam_part in (1,2)");
+                                $rightMathCount =$selMathScore->rowCount();
+                                $rightEnCount =$selEnScore->rowCount();
+                                $allMathquestions = $selAllMathQuestions->rowCount();
+                                $allEnquestions = $selAllEnQuestions->rowCount();
+                                $math_score = ($rightMathCount / $allMathquestions) * 800;
+                                $math_score = 200+ ceil($math_score / 10) * 10;
+                                $en_score = ($rightEnCount / $allEnquestions) * 800;
+                                $en_score = 200+ ceil($en_score / 10) * 10;
 
                             ?>
-                            <span><?=$score?></span>
+                           <span><?=$en_score?></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-3 widget-content bg-night-fade">
+                <div class="widget-content-wrapper text-white">
+                    <div class="widget-content-left">
+                        <div class="widget-heading"><h4>Math Score</h4></div>
+                        <div class="widget-subheading" style="color: transparent;">/</div>
+                    </div>
+                    <div class="widget-content-right">
+                        <div class="widget-numbers text-white">
+                            
+                            <span><?=$math_score?></span>
                         </div>
                     </div>
                 </div>
@@ -89,17 +109,27 @@
             <div class="card mb-3 widget-content bg-happy-itmeo">
                 <div class="widget-content-wrapper text-white">
                     <div class="widget-content-left">
-                        <div class="widget-heading"><h5>Correct Answers</h5></div>
+                        <div class="widget-heading" style="width: 85%;"><h4>Reading and Writing Correct Answers</h4></div>
                         <div class="widget-subheading" style="color: transparent;">/</div>
                     </div>
                     <div class="widget-content-right">
                         <div class="widget-numbers text-white">
-                            <?php 
-                                $selScore = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND LOWER(TRIM(eqt.exam_answer)) = LOWER(TRIM(ea.exans_answer))  WHERE ea.axmne_id='$exmneId' AND ea.exam_id='$examId' AND ea.session_id = '$session_id' ");
-                                $rightCount =$selScore->rowCount();   
-
-                            ?>
-                            <span><?=$rightCount?></span>
+                            
+                            <span><?=$rightEnCount?></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-3 widget-content bg-happy-itmeo">
+                <div class="widget-content-wrapper text-white">
+                    <div class="widget-content-left">
+                        <div class="widget-heading"><h4>Math Correct Answers</h4></div>
+                        <div class="widget-subheading" style="color: transparent;">/</div>
+                    </div>
+                    <div class="widget-content-right">
+                        <div class="widget-numbers text-white">
+                            
+                            <span><?=$rightMathCount?></span>
                         </div>
                     </div>
                 </div>

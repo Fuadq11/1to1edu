@@ -20,7 +20,8 @@
                                 <th>Fullname</th>
                                 <th>Exam Name</th>
                                 <th>Attempt</th>
-                                <th>Scores</th>
+                                <th>Reading and Writing Scores</th>
+                                <th>Math Scores</th>
                                 <!-- <th>Ratings</th> -->
                                 <th width="10%">Print</th>
                             </tr>
@@ -55,18 +56,26 @@
                                             </td>
                                            <td>
                                                     <?php 
-                                                    $selScore = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND LOWER(TRIM(eqt.exam_answer)) = LOWER(TRIM(ea.exans_answer))  WHERE ea.axmne_id='$eid' AND ea.exam_id='$exam_id'AND ea.session_id ='$session_id'  ORDER BY ea.exans_id DESC ");
-                                                    $selAllQuestions = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_tbl et ON eqt.exam_id = et.ex_id");
-                                                    $rightAnswers =$selScore->rowCount();
-                                                    $allquestions = $selAllQuestions->rowCount();
-                                                    $score = ($rightAnswers / $allquestions) * 800;
-                                                    $score = ceil($score / 10) * 10;
+                                                    $selMathScore = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND LOWER(TRIM(eqt.exam_answer)) = LOWER(TRIM(ea.exans_answer))  WHERE eqt.exam_part in (3,4) AND ea.axmne_id='$eid' AND ea.exam_id='$exam_id'AND ea.session_id ='$session_id'  ORDER BY ea.exans_id DESC ");
+                                                    $selEnScore = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND LOWER(TRIM(eqt.exam_answer)) = LOWER(TRIM(ea.exans_answer))  WHERE eqt.exam_part in (1,2) AND ea.axmne_id='$eid' AND ea.exam_id='$exam_id'AND ea.session_id ='$session_id'  ORDER BY ea.exans_id DESC ");
+                                                    $selAllMathQuestions = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_tbl et ON eqt.exam_id = et.ex_id WHERE eqt.exam_part in (3,4)");
+                                                    $selAllEnQuestions = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_tbl et ON eqt.exam_id = et.ex_id WHERE eqt.exam_part in (1,2)");
+                                                    $rightMathAnswers =$selMathScore->rowCount();
+                                                    $rightEnAnswers =$selEnScore->rowCount();
+                                                    $allMathquestions = $selAllMathQuestions->rowCount();
+                                                    $allEnquestions = $selAllEnQuestions->rowCount();
+                                                    $math_score = ($rightMathAnswers / $allMathquestions) * 800;
+                                                    $math_score = 200+ ceil($math_score / 10) * 10;
+                                                    $en_score = ($rightEnAnswers / $allEnquestions) * 800;
+                                                    $en_score = 200+ ceil($en_score / 10) * 10;
                                                       ?>
-                                                <?php echo $score; ?>
+                                                <?php echo $en_score; ?>
                                            </td>
-                                          
+                                            <td>
+                                                <?=$math_score?>
+                                            </td>
                                            <td>
-                                               <button class="btn btn-sm btn-primary" onclick="generatePDF('<?=$selExmneRow['exmne_fullname']?>','<?=$selExName['ex_title']?>','<?=$score?>')">Print Result</button>
+                                               <button class="btn btn-sm btn-primary" onclick="generatePDF('<?=$selExmneRow['exmne_fullname']?>','<?=$selExName['ex_title']?>','<?=$en_score?>','<?=$math_score?>')">Print Result</button>
 
                                            </td>
                                         </tr>
