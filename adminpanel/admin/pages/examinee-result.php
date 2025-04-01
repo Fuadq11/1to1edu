@@ -22,6 +22,7 @@
                                 <th>Attempt</th>
                                 <th>Reading and Writing Scores</th>
                                 <th>Math Scores</th>
+                                <th>Total Scores</th>
                                 <!-- <th>Ratings</th> -->
                                 <th width="10%">Print</th>
                             </tr>
@@ -66,16 +67,24 @@
                                                     $allEnquestions = $selAllEnQuestions->rowCount();
                                                     $math_score = ($rightMathAnswers / $allMathquestions) * 800;
                                                     $math_score = 200+ ceil($math_score / 10) * 10;
+                                                    
                                                     $en_score = ($rightEnAnswers / $allEnquestions) * 800;
                                                     $en_score = 200+ ceil($en_score / 10) * 10;
+
+                                                    $math_score = $math_score>800? 800:$math_score;
+                                                    $en_score = $en_score>800? 800:$en_score;
+                                                    $total_score = $en_score + $math_score
                                                       ?>
                                                 <?php echo $en_score; ?>
                                            </td>
                                             <td>
                                                 <?=$math_score?>
                                             </td>
+                                            <td>
+                                                <?=$total_score?>
+                                            </td>
                                            <td>
-                                               <button class="btn btn-sm btn-primary" onclick="generatePDF('<?=$selExmneRow['exmne_fullname']?>','<?=$selExName['ex_title']?>','<?=$en_score?>','<?=$math_score?>')">Print Result</button>
+                                               <button class="btn btn-sm btn-primary" onclick="generatePDF('<?=$selExmneRow['exmne_fullname']?>','<?=$selExName['ex_title']?>','<?=$en_score?>','<?=$math_score?>','<?=$total_score?>')">Print Result</button>
 
                                            </td>
                                         </tr>

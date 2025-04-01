@@ -34,23 +34,26 @@
                 	<h5 class="card-title">Your Answer's</h5>
         			<table class="align-middle mb-0 table table-borderless table-striped table-hover" id="tableList">
                     <?php 
-                    	$selQuest = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id WHERE eqt.exam_id='$examId' AND ea.axmne_id='$exmneId' AND ea.session_id = '$session_id' ");
+                    	$selQuest = $conn->query("SELECT * FROM exam_question_tbl eqt LEFT JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND ea.axmne_id='$exmneId' AND ea.session_id = '$session_id' WHERE eqt.exam_id='$examId'  ");
+                    	// $selQuest = $conn->query("SELECT * FROM exam_question_tbl eqt LEFT JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id WHERE eqt.exam_id='$examId' AND ea.axmne_id='$exmneId' AND ea.session_id = '$session_id' ");
                     	$i = 1;
                     	while ($selQuestRow = $selQuest->fetch(PDO::FETCH_ASSOC)) { ?>
                     		<tr>
                     			<td>
                     				<b><p><?php echo $i++; ?> .) <?php echo $selQuestRow['exam_question']; ?></p></b>
                     				<label class="pl-4 text-success">
-                    					Answer : 
-                    					<?php 
+                    					 
+                    					<?php if(isset($selQuestRow['exans_answer'])){
                     						if(strtolower(trim($selQuestRow['exam_answer'])) != strtolower(trim($selQuestRow['exans_answer'])))
                     						{ ?>
-                    							<span style="color:red"><?php echo $selQuestRow['exans_answer']; ?></span>
+                    							<span style="color:red"><?php echo "Your Answer: ".$selQuestRow['exans_answer']." | Wrong answer"; ?></span>
                     						<?PHP }
                     						else
                     						{ ?>
-                    							<span class="text-success"><?php echo $selQuestRow['exans_answer']; ?></span>
-                    						<?php }
+                    							<span class="text-success"><?php echo "Your Answer: ".$selQuestRow['exans_answer']." | Correct"; ?></span>
+                    						<?php } }else{ ?>
+                                                <span style="color:blue"><?php echo "Not answered" ?></span>
+                                         <?php   }
                     					 ?>
                     				</label>
                     			</td>
@@ -85,7 +88,10 @@
                                 $math_score = 200+ ceil($math_score / 10) * 10;
                                 $en_score = ($rightEnCount / $allEnquestions) * 800;
                                 $en_score = 200+ ceil($en_score / 10) * 10;
+                                $math_score = $math_score>800? 800:$math_score;
+                                $en_score = $en_score>800? 800:$en_score;
 
+                                $total_score = $math_score + $en_score;
                             ?>
                            <span><?=$en_score?></span>
                         </div>
@@ -106,6 +112,22 @@
                     </div>
                 </div>
             </div>
+
+            <div class="card mb-3 widget-content bg-strong-bliss">
+                <div class="widget-content-wrapper text-white">
+                    <div class="widget-content-left">
+                        <div class="widget-heading"><h4>Total Score</h4></div>
+                        <div class="widget-subheading" style="color: transparent;">/</div>
+                    </div>
+                    <div class="widget-content-right">
+                        <div class="widget-numbers text-white">
+                            
+                            <span><?=$total_score?></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="card mb-3 widget-content bg-happy-itmeo">
                 <div class="widget-content-wrapper text-white">
                     <div class="widget-content-left">

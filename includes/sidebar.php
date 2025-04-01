@@ -28,7 +28,8 @@
                 </span>
             </button>
         </span>
-    </div>    <div class="scrollbar-sidebar">
+    </div>    
+    <div class="scrollbar-sidebar">
         <div class="app-sidebar__inner">
             <ul class="vertical-nav-menu">
 
@@ -39,6 +40,7 @@
                      Dashboard
                    
                 </a>
+            </li>
                 <!-- <li class="app-sidebar__heading">AVAILABLE EXAM'S</li>
                 <li>
                 <a href="#">

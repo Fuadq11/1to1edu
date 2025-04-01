@@ -38,10 +38,11 @@
                           <tbody>
                             <thead>
                                 <tr>
-                                    <th width="25%">Examinee Fullname</th>
+                                    <th width="25%">Fullname</th>
                                     <th>Attempt</th>
                                     <th>Reading and Writing Score</th>
                                     <th>Math Score</th>
+                                    <th>Total Score</th>
                                     <th>Reading and Writing (Correct / Over)</th>
                                     <th>Math (Correct / Over)</th>
                                 </tr>
@@ -80,7 +81,8 @@
                                             $en_score = 200+ ceil($en_score / 10) * 10;
                                            
                                             // $selScore = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND eqt.exam_answer = ea.exans_answer  WHERE ea.axmne_id='$exmneId' AND ea.exam_id='$exam_id' AND ea.exans_status='new' ORDER BY ea.exans_id DESC");
-
+                                            $math_score = $math_score>800? 800:$math_score;
+                                            $en_score = $en_score>800? 800:$en_score;
                                             $total_score = $en_score+$math_score;
 
                                          ?>
@@ -118,6 +120,11 @@
                                         <td>
                                         <?php                                         
                                             echo $math_score;                 
+                                         ?>
+                                        </td>
+                                        <td>
+                                        <?php                                         
+                                            echo $total_score;                 
                                          ?>
                                         </td>
                                         <td>
