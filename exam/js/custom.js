@@ -175,7 +175,7 @@ $(document).ready(function () {
 		$(this).prop('checked', false);
 		$('.selected-answer[data-question-id="' + qname + '"]').removeClass('selected-answer');
 		$(this).addClass('selected-answer');
-
+		saveAnswer(qname,exam_id,0);
 		// numberOfQuestionsAttempted++;
 		// alert($('input[type="radio"][name="question[' + qname + ']"]:checked').val());
 	});
@@ -420,6 +420,9 @@ function updateCountdown() {
                 let minutes = Math.floor(remainingTime / 60);
 
                 let seconds = remainingTime % 60;
+				if(seconds < 10){
+					seconds = "0"+seconds;
+				}
                 document.getElementById("global_watch").innerHTML = `${minutes} : ${seconds}`;
                 setTimeout(updateCountdown, 1000);
             }

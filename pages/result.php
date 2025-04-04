@@ -46,11 +46,11 @@
                     					<?php if(isset($selQuestRow['exans_answer'])){
                     						if(strtolower(trim($selQuestRow['exam_answer'])) != strtolower(trim($selQuestRow['exans_answer'])))
                     						{ ?>
-                    							<span style="color:red"><?php echo "Your Answer: ".$selQuestRow['exans_answer']." | Wrong answer"; ?></span>
+                    							<span style="color:red"><?php echo "Your Answer: ".$selQuestRow['exans_answer']." | Wrong<br> <strong>Answer is: ".$selQuestRow['exam_answer']."</strong>"; ?></span>
                     						<?PHP }
                     						else
                     						{ ?>
-                    							<span class="text-success"><?php echo "Your Answer: ".$selQuestRow['exans_answer']." | Correct"; ?></span>
+                    							<span class="text-success"><?php echo "Your Answer: ".$selQuestRow['exans_answer']." | Correct<br> <strong>Answer is: ".$selQuestRow['exam_answer']."</strong>"; ?></span>
                     						<?php } }else{ ?>
                                                 <span style="color:blue"><?php echo "Not answered" ?></span>
                                          <?php   }

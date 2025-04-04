@@ -263,6 +263,7 @@
   padding: 20px;
   box-shadow: 1px 1px 5px rgb(40, 40, 40),
               -1px -1px 5px rgb(40, 40, 40);
+  z-index: 999;
 }
 .bottombar .pagination {
     background: #1d3349;
@@ -295,7 +296,7 @@
     
     background: none;
     border-radius: 0 !important;
-    margin-left: -3px;
+   
     border: 1px dashed black;
     font-family: 'Avenir-Medium';
     color: black;
@@ -348,6 +349,11 @@ body{
 @media only screen and (max-width: 600px) {
   .bottombar ul {
     overflow-x: auto !important;
+  }
+  .pagination-modal{
+    left: 5%;
+    width: 90%;
+    bottom: 165px;
   }
 }
 

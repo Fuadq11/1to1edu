@@ -291,14 +291,14 @@
                             <?php }else{ ?>
                               <div class="open-question-asnwer my-4">
                                 <label>Answer: </label>
-                                  <input type="text" name="question[<?=$questId?>]" value="<?=$ans['df']?>" >
+                                  <input type="text" oninput="saveAnswer(<?=$questId?>,<?=$examId?>,<?=$selQuestRow['question_type']?>)" name="question[<?=$questId?>]" value="<?=$ans['df']?>" >
                               </div>
 
                          <?php   } ?>
-                            <button class="btn btn-primary anwer-save-btn" onclick="saveAnswer(<?=$questId?>,<?=$examId?>,<?=$selQuestRow['question_type']?>)" data-question-id="<?=$question_number++?>" type="button">Save Answer</button>
+                            <button class="btn btn-primary anwer-save-btn" style="display: none;" onclick="saveAnswer(<?=$questId?>,<?=$examId?>,<?=$selQuestRow['question_type']?>)" data-question-id="<?=$question_number?>" type="button">Save Answer</button>
                           </div>
                         </div>
-                        <?php } ?>
+                        <?php $question_number++;} ?>
                       <!-- Question ends -->
                       </div>
                     </div>
