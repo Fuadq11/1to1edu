@@ -295,7 +295,7 @@
                               </div>
 
                          <?php   } ?>
-                            <button class="btn btn-primary anwer-save-btn" style="display: none;" onclick="saveAnswer(<?=$questId?>,<?=$examId?>,<?=$selQuestRow['question_type']?>)" data-question-id="<?=$question_number?>" type="button">Save Answer</button>
+                        
                           </div>
                         </div>
                         <?php $question_number++;} ?>
