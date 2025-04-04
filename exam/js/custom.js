@@ -149,27 +149,27 @@ $(document).ready(function () {
 		$('.submitButton').click();
 	});
 	// answered question markup 
-	question_markup();
-	function question_markup(){
-		$.ajax({
-			url: "query/ansQuestionMark.php",
-			method: "post",
-			data:{act:"selectQuestions"},
-			dataType: "json",
-			success: function(data){
-				if(data.status=="success"){
-					$(".bottombar-questions").each(function(){
+	// question_markup();
+	// function question_markup(){
+	// 	$.ajax({
+	// 		url: "query/ansQuestionMark.php",
+	// 		method: "post",
+	// 		data:{act:"selectQuestions"},
+	// 		dataType: "json",
+	// 		success: function(data){
+	// 			if(data.status=="success"){
+	// 				$(".bottombar-questions").each(function(){
 						
-						if(data.questionIds.includes(Number($( this ).attr("data-question")))){
-							$( this ).addClass("bottombar-highlight");
-						}
-					})
-				}else{
-					console.log("error");
-				}		
-			}
-		})
-	}
+	// 					if(data.questionIds.includes(Number($( this ).attr("data-question")))){
+	// 						$( this ).addClass("bottombar-highlight");
+	// 					}
+	// 				})
+	// 			}else{
+	// 				console.log("error");
+	// 			}		
+	// 		}
+	// 	})
+	// }
 // save question answer
 function saveAnswer(question_id,exam_id,type){
 	let answer = null;

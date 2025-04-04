@@ -322,13 +322,23 @@
                     <!-- <li class="bottombar-questions bottombar-highlight" data-questionid="1" data-questionnumber="1" onclick="showOnlyQuestion(1)">1</li> -->
                       
                     <?php if($total_question>0){
-                     
+                     $res["questionIds"]=array();
+                     $sql = $conn->query("SELECT ea.quest_id FROM exam_answers ea INNER JOIN exam_question_tbl eq on ea.quest_id = eq.eqt_id WHERE ea.session_id = '$session_id' AND ea.axmne_id = '$exmne_id'");
+                     if($sql->rowCount()>0){
+                        while($qIds = $sql->fetch(PDO::FETCH_ASSOC)){
+                             array_push($res["questionIds"],$qIds['quest_id']);
+                        }
+                     }
                       $j=0;
                       while($j<$total_question){
-                      ?>
-                      <li class="bottombar-questions" data-question="<?=$questinIds[$j]?>" data-questionid="<?=$j?>" data-questionnumber="<?=$j?>" onclick="showOnlyQuestion(<?=$j?>)"><?=$j+1?></li>
+                        if(in_array($questinIds[$j],$res["questionIds"])){?>
+                          <li class="bottombar-questions bottombar-highlight" data-question="<?=$questinIds[$j]?>" data-questionid="<?=$j?>" data-questionnumber="<?=$j?>" onclick="showOnlyQuestion(<?=$j?>)"><?=$j+1?></li>
 
-                    <?php $j++; } }?>
+                      <?php }else{
+                      ?>
+                          <li class="bottombar-questions" data-question="<?=$questinIds[$j]?>" data-questionid="<?=$j?>" data-questionnumber="<?=$j?>" onclick="showOnlyQuestion(<?=$j?>)"><?=$j+1?></li>
+
+                    <?php } $j++; } }?>
                 </ul>              
               </div>
             </div>
