@@ -19,9 +19,16 @@
 	
 	<div class="limiter">
 		<div class="container-login100">
+				<div class="app_logo">
+					<img src="./assets/images/logo-inverse.png" width="200" alt="">
+				</div>
 			<div class="wrap-login100">
 				<div class="login100-form-title" style="background-image: url(login-ui/images/bg-01.jpg);">
 					<span class="login100-form-title-1">
+						Admin Panel <br>
+					</span>
+					<span class="login100-form-title-2">
+						
 						Sign In
 					</span>
 				</div>

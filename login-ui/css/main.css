@@ -179,8 +179,11 @@ iframe {
   align-items: center;
   padding: 15px;
   background: #ebeeef;
+  flex-direction: column;
 }
-
+.app_logo{
+  margin: 20px 0;
+}
 
 .wrap-login100 {
   width: 670px;
