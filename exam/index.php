@@ -291,7 +291,7 @@
                             <?php }else{ ?>
                               <div class="open-question-asnwer my-4">
                                 <label>Answer: </label>
-                                  <input type="text" oninput="saveAnswer(<?=$questId?>,<?=$examId?>,<?=$selQuestRow['question_type']?>)" name="question[<?=$questId?>]" value="<?=$ans['df']?>" >
+                                  <input type="text"  name="question[<?=$questId?>]" data-question-id="<?=$questId?>" value="<?=$ans['df']?>" >
                               </div>
 
                          <?php   } ?>

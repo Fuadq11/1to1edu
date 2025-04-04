@@ -113,8 +113,6 @@ var autoSave = null;
 /////////////////////////////////////////////////////////////////////////
 $(document).ready(function () {
 	initialiseQuestions();
-
-
 	$('body').on('click touchstart tap', '.question_answer', function () {
 		var qname = $(this).attr('data-question-id');
 		var value = $(this).attr('data-answer-value');
@@ -150,36 +148,28 @@ $(document).ready(function () {
 	$('.btn-submit-completed').click(function () {
 		$('.submitButton').click();
 	});
-
-	
-	
 	// answered question markup 
 	question_markup();
-
-});
-function question_markup(){
-	$.ajax({
-		url: "query/ansQuestionMark.php",
-		method: "post",
-		data:{act:"selectQuestions"},
-		dataType: "json",
-		success: function(data){
-			if(data.status=="success"){
-				$(".bottombar-questions").each(function(){
-					
-					if(data.questionIds.includes(Number($( this ).attr("data-question")))){
-						$( this ).addClass("bottombar-highlight");
-					}
-				})
-			}else{
-				console.log("error");
+	function question_markup(){
+		$.ajax({
+			url: "query/ansQuestionMark.php",
+			method: "post",
+			data:{act:"selectQuestions"},
+			dataType: "json",
+			success: function(data){
+				if(data.status=="success"){
+					$(".bottombar-questions").each(function(){
+						
+						if(data.questionIds.includes(Number($( this ).attr("data-question")))){
+							$( this ).addClass("bottombar-highlight");
+						}
+					})
+				}else{
+					console.log("error");
+				}		
 			}
-			
-			
-		}
-	})
-}
-	// end of question markup
+		})
+	}
 // save question answer
 function saveAnswer(question_id,exam_id,type){
 	let answer = null;
@@ -212,6 +202,14 @@ function saveAnswer(question_id,exam_id,type){
 	 }
 	
 }
+$('.open-question-asnwer input').on("input",function(){
+	let q_id = $( this ).attr("data-question-id");
+	saveAnswer(q_id,exam_id,1);
+})
+});
+
+	// end of question markup
+
 
 function updateCountdown() {
     $.ajax({
