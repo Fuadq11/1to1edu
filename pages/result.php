@@ -52,7 +52,7 @@
                     						{ ?>
                     							<span class="text-success"><?php echo "Your Answer: ".$selQuestRow['exans_answer']." | Correct<br> <strong>Answer is: ".$selQuestRow['exam_answer']."</strong>"; ?></span>
                     						<?php } }else{ ?>
-                                                <span style="color:blue"><?php echo "Not answered" ?></span>
+                                                <span style="color:blue"><?php echo "Not answered<br> <strong>Answer is: ".$selQuestRow['exam_answer']."</strong>"; ?></span>
                                          <?php   }
                     					 ?>
                     				</label>
