@@ -295,8 +295,7 @@
                               </div>
 
                          <?php   } ?>
-                        
-                          </div>
+                              </div>
                         </div>
                         <?php $question_number++;} ?>
                       <!-- Question ends -->
