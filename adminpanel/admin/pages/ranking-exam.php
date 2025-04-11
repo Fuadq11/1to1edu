@@ -35,7 +35,7 @@
                     </div>
                     </div>
                     <div class="table-responsive">
-                        <table class="align-middle mb-0 table table-borderless table-striped table-hover display" id="tableListExamins">
+                        <table class="align-middle mb-0 table table-borderless table-striped table-hover display" id="tableListExams">
                             <thead>
                                 <tr>
                                     <th width="25%">Fullname</th>
@@ -165,7 +165,7 @@
                     <div class="card-header">Exam List
                     </div>
                     <div class="table-responsive">
-                        <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="tableListExam">
+                        <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="tableListExams">
                             <thead>
                             <tr>
                                 <th class="text-left pl-4">Exam Title</th>

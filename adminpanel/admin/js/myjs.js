@@ -179,19 +179,9 @@ $(document).ready(function(){
 		}
 	});
 })
+
 $(document).ready(function(){
-	new DataTable('#tableListExamins', {
-		layout: {
-			bottomEnd: {
-				paging: {
-					firstLast: false
-				}
-			}
-		}
-	});
-})
-$(document).ready(function(){
-	new DataTable('#tableListExam', {
+	new DataTable('#tableListExams', {
 		layout: {
 			bottomEnd: {
 				paging: {
