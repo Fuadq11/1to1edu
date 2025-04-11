@@ -44,7 +44,7 @@
                         <tr><td><h3><?=$arr[$k]?></h3></td></tr>
                     <?php 
                         // Section 1, Module 1: Reading and Writing
-                    	$selQuest = $conn->query("SELECT * FROM exam_question_tbl eqt LEFT JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND ea.axmne_id='$exmneId' AND ea.session_id = '$session_id' WHERE eqt.exam_id='$examId' AND eqt.exam_part = '$k' Order by exam_part ASC; ");
+                    	$selQuest = $conn->query("SELECT * FROM exam_question_tbl eqt LEFT JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND ea.axmne_id='$exmneId' AND ea.session_id = '$session_id' WHERE eqt.exam_id='$examId' AND eqt.exam_part = '$k' Order by eqt.eqt_id ASC; ");
                     	// $selQuest = $conn->query("SELECT * FROM exam_question_tbl eqt LEFT JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id WHERE eqt.exam_id='$examId' AND ea.axmne_id='$exmneId' AND ea.session_id = '$session_id' ");
                     	$i = 1;
                     	while ($selQuestRow = $selQuest->fetch(PDO::FETCH_ASSOC)) { ?>
