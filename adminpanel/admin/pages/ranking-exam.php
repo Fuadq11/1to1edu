@@ -45,6 +45,7 @@
                                     <th>Total Score</th>
                                     <th>Reading and Writing (Correct / Over)</th>
                                     <th>Math (Correct / Over)</th>
+                                    <th>Details</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -132,6 +133,9 @@
                                         <td>
                                           <?php        
                                             echo $rightMathAnswers." / ".$allMathquestions; ?>
+                                        </td>
+                                        <td>
+                                           <a class="btn btn-sm btn-primary" href="?page=result&s_id=<?=$session_id?>" >See Result</a>  
                                         </td>
                                     </tr>
                                 <?php       } // end of examin sessions
