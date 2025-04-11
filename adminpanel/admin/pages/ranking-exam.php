@@ -1,3 +1,4 @@
+
 <div class="app-main__outer">
         <div class="app-main__inner">
              
@@ -24,7 +25,7 @@
                         <div class="page-title-heading">
                             <div><b class="text-primary">RANKING BY EXAM</b><br>
                                 Exam Name : <?php echo $selEx['ex_title']; ?><br><br>
-                               <span class="border" style="padding:10px;color:black;background-color: yellow;">Excellence</span>
+                               <span class="border" style="padding:10px;color:black;background-color: yellow;">Excellent</span>
                                <span class="border" style="padding:10px;color:white;background-color: green;">Very Good</span>
                                <span class="border" style="padding:10px;color:white;background-color: blue;">Good</span>
                                <span class="border" style="padding:10px;color:white;background-color: red;">Failed</span>
@@ -34,8 +35,7 @@
                     </div>
                     </div>
                     <div class="table-responsive">
-                        <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="tableList">
-                          <tbody>
+                        <table class="align-middle mb-0 table table-borderless table-striped table-hover display" id="tableListExamins">
                             <thead>
                                 <tr>
                                     <th width="25%">Fullname</th>
@@ -47,6 +47,7 @@
                                     <th>Math (Correct / Over)</th>
                                 </tr>
                             </thead>
+                            <tbody>
                             <?php 
                                 while ($selExmneRow = $selExmne->fetch(PDO::FETCH_ASSOC)) { 
                                     $exmneId = $selExmneRow['exmne_id'];
@@ -75,9 +76,9 @@
                                             $rightEnAnswers =$selEnScore->rowCount();
                                             $allMathquestions = $selAllMathQuestions->rowCount();
                                             $allEnquestions = $selAllEnQuestions->rowCount();
-                                            $math_score = ($rightMathAnswers / $allMathquestions) * 800;
+                                            $math_score = ($rightMathAnswers / $allMathquestions) * 600;
                                             $math_score = 200+ ceil($math_score / 10) * 10;
-                                            $en_score = ($rightEnAnswers / $allEnquestions) * 800;
+                                            $en_score = ($rightEnAnswers / $allEnquestions) * 600;
                                             $en_score = 200+ ceil($en_score / 10) * 10;
                                            
                                             // $selScore = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND eqt.exam_answer = ea.exans_answer  WHERE ea.axmne_id='$exmneId' AND ea.exam_id='$exam_id' AND ea.exans_status='new' ORDER BY ea.exans_id DESC");
@@ -144,7 +145,7 @@
                           </tbody>
                         </table>
                     </div>
-
+               
 
 
                    <?php
@@ -161,10 +162,10 @@
 
                  <div class="col-md-12">
                 <div class="main-card mb-3 card">
-                    <div class="card-header">ExAM List
+                    <div class="card-header">Exam List
                     </div>
                     <div class="table-responsive">
-                        <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="tableList">
+                        <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="tableListExam">
                             <thead>
                             <tr>
                                 <th class="text-left pl-4">Exam Title</th>
@@ -211,7 +212,7 @@
                     </div>
                 </div>
             </div>   
-                    
+            
                 <?php }
 
              ?>      

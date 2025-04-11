@@ -168,3 +168,36 @@ function generatePDF(fullname,exam_title,math_score,en_score,total_score) {
             // doc.text(en_score, 60, 100);
     doc.save(fullname+" Exam_Results.pdf");
 }
+$(document).ready(function(){
+	new DataTable('#tableList', {
+		layout: {
+			bottomEnd: {
+				paging: {
+					firstLast: false
+				}
+			}
+		}
+	});
+})
+$(document).ready(function(){
+	new DataTable('#tableListExamins', {
+		layout: {
+			bottomEnd: {
+				paging: {
+					firstLast: false
+				}
+			}
+		}
+	});
+})
+$(document).ready(function(){
+	new DataTable('#tableListExam', {
+		layout: {
+			bottomEnd: {
+				paging: {
+					firstLast: false
+				}
+			}
+		}
+	});
+})

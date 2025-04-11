@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="css/mycss.css">
+<!-- <link rel="stylesheet" type="text/css" href="css/mycss.css"> -->
 <div class="app-main__outer">
         <div class="app-main__inner">
             <div class="app-page-title">
@@ -65,10 +65,10 @@
                                                     $rightEnAnswers =$selEnScore->rowCount();
                                                     $allMathquestions = $selAllMathQuestions->rowCount();
                                                     $allEnquestions = $selAllEnQuestions->rowCount();
-                                                    $math_score = ($rightMathAnswers / $allMathquestions) * 800;
+                                                    $math_score = ($rightMathAnswers / $allMathquestions) * 600;
                                                     $math_score = 200+ ceil($math_score / 10) * 10;
                                                     
-                                                    $en_score = ($rightEnAnswers / $allEnquestions) * 800;
+                                                    $en_score = ($rightEnAnswers / $allEnquestions) * 600;
                                                     $en_score = 200+ ceil($en_score / 10) * 10;
 
                                                     $math_score = $math_score>800? 800:$math_score;

@@ -44,7 +44,11 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Course</label>
-              <input type="" name="course_name" id="course_name" class="form-control" value="<?php echo $selCourseRow['cou_name']; ?>">
+              <input type="" name="course_name" id="course_name" class="form-control" value="<?php 
+                if(isset($selCourseRow['cou_name'])){
+                  echo $selCourseRow['cou_name'];
+                }
+              ?>">
             </div>
           </div>
         </div>
@@ -106,7 +110,7 @@
 
           <div class="form-group">
             <label>Question Limit to Display</label>
-            <input type="number" name="examQuestDipLimit" id="" class="form-control" placeholder="Input question limit to display">
+            <input type="number" name="examQuestDipLimit" class="form-control" placeholder="Input question limit to display">
           </div>
 
           <div class="form-group">
@@ -198,7 +202,7 @@
             <label>Password</label>
             <input type="password" name="password" id="password" class="form-control" placeholder="Input Password" autocomplete="off" required="">
           </div>
-          <select name="exmneStatus" id="" class="form-control">
+          <select name="exmneStatus" class="form-control">
             <option value="active" selected>active</option>
             <option value="deactive" >deactive</option>
             <option value="pending" >pending</option>
@@ -237,7 +241,7 @@
           <div class="form-group">
             <label><b>Question</b></label>
             <input type="hidden" name="examId" value="<?php echo $exId; ?>">
-            <textarea name="question" id="" class="form-control" required></textarea>
+            <textarea name="question"  class="form-control" required></textarea>
             <!-- <input type="" name="question" id="course_name" class="form-control" placeholder="Input question" autocomplete="off"> -->
           </div>
           <div class="form-group">
@@ -251,7 +255,7 @@
           
           <div class="form-group">
                 <label><b>Question for: </b></label>
-                <select name="question_for" id="" class="form-control">
+                <select name="question_for" class="form-control">
                   <?php
                     $selParts = $conn->query("SELECT * FROM sat_exam_parts");
                     if($selParts->rowCount()>0){ 
@@ -276,29 +280,29 @@
                 <div class="form-group">
                   <label><b>Choice A</b></label>
                   <!-- <input type="" name="choice_A" id="choice_A" class="form-control" placeholder="Input choice A" autocomplete="off" required> -->
-                  <textarea name="choice_A" id="" class="form-control" height="100" required></textarea>
+                  <textarea name="choice_A" class="form-control" height="100" required></textarea>
                 </div>
 
                 <div class="form-group">
                   <label><b>Choice B</b></label>
                   <!-- <input type="" name="choice_B" id="choice_B" class="form-control" placeholder="Input choice B" autocomplete="off" required> -->
-                  <textarea name="choice_B" id="" class="form-control" required></textarea>                  
+                  <textarea name="choice_B"  class="form-control" required></textarea>                  
                 </div>
 
                 <div class="form-group">
                   <label><b>Choice C</b></label>
                   <!-- <input type="" name="choice_C" id="choice_C" class="form-control" placeholder="Input choice C" autocomplete="off" required> -->
-                  <textarea name="choice_C" id="" class="form-control" required></textarea>
+                  <textarea name="choice_C"  class="form-control" required></textarea>
                 </div>
 
                 <div class="form-group">
                   <label><b>Choice D</b></label>
                   <!-- <input type="" name="choice_D" id="choice_D" class="form-control" placeholder="Input choice D" autocomplete="off" required> -->
-                  <textarea name="choice_D" id="" class="form-control" required></textarea>
+                  <textarea name="choice_D"  class="form-control" required></textarea>
                 </div>
                 <div class="form-group">
                   <label><b>Correct Answer:</b></label>
-                  <select name="correctAnswer" id="" class="form-control" required>
+                  <select name="correctAnswer"  class="form-control" required>
                       <option value="a">A</option>
                       <option value="b">B</option>
                       <option value="c">C</option>

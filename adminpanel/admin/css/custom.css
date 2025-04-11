@@ -4,3 +4,6 @@
 .cke_notifications_area{
     display: none !important;
 }
+.main-card{
+    padding: 0 5px;
+}

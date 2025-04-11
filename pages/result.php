@@ -25,16 +25,26 @@
             </div>
         </div>  
         <div class="row col-md-12 pl-4">
-        	<h1 class="text-primary ">RESULT'S</h1>
+        	<h1 class="text-primary ">Exam Result</h1>
         </div>
-
+        
         <div class="col-md-8 float-left">
         	<div class="main-card mb-3 card">
                 <div class="card-body">
-                	<h5 class="card-title">Your Answer's</h5>
+                	<h5 class="card-title">Your Answers</h5>
+                    
         			<table class="align-middle mb-0 table table-borderless table-striped table-hover" id="tableList">
+                        <?php
+                            $arr[1]="Section 1, Module 1: Reading and Writing";
+                            $arr[2]="Section 1, Module 2: Reading and Writing";
+                            $arr[3]="Section 2, Module 1: Math";
+                            $arr[4]="Section 2, Module 2: Math";
+                            for($k=1;$k<=4;$k++){   
+                        ?>
+                        <tr><td><h3><?=$arr[$k]?></h3></td></tr>
                     <?php 
-                    	$selQuest = $conn->query("SELECT * FROM exam_question_tbl eqt LEFT JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND ea.axmne_id='$exmneId' AND ea.session_id = '$session_id' WHERE eqt.exam_id='$examId'  ");
+                        // Section 1, Module 1: Reading and Writing
+                    	$selQuest = $conn->query("SELECT * FROM exam_question_tbl eqt LEFT JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND ea.axmne_id='$exmneId' AND ea.session_id = '$session_id' WHERE eqt.exam_id='$examId' AND eqt.exam_part = '$k' Order by exam_part ASC; ");
                     	// $selQuest = $conn->query("SELECT * FROM exam_question_tbl eqt LEFT JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id WHERE eqt.exam_id='$examId' AND ea.axmne_id='$exmneId' AND ea.session_id = '$session_id' ");
                     	$i = 1;
                     	while ($selQuestRow = $selQuest->fetch(PDO::FETCH_ASSOC)) { ?>
@@ -58,7 +68,7 @@
                     				</label>
                     			</td>
                     		</tr>
-                    	<?php }
+                    	<?php } }
                      ?>
 	                 </table>
                 </div>
@@ -84,9 +94,9 @@
                                 $rightEnCount =$selEnScore->rowCount();
                                 $allMathquestions = $selAllMathQuestions->rowCount();
                                 $allEnquestions = $selAllEnQuestions->rowCount();
-                                $math_score = ($rightMathCount / $allMathquestions) * 800;
+                                $math_score = ($rightMathCount / $allMathquestions) * 600;
                                 $math_score = 200+ ceil($math_score / 10) * 10;
-                                $en_score = ($rightEnCount / $allEnquestions) * 800;
+                                $en_score = ($rightEnCount / $allEnquestions) * 600;
                                 $en_score = 200+ ceil($en_score / 10) * 10;
                                 $math_score = $math_score>800? 800:$math_score;
                                 $en_score = $en_score>800? 800:$en_score;

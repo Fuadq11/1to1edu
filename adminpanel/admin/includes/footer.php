@@ -43,7 +43,7 @@
 
 
 
-                <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+                
         </div>
     </div>
 <script type="text/javascript" src="./assets/scripts/main.js"></script></body>
@@ -59,6 +59,7 @@
 <script src="plugins/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="js/jquery.validate.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script type="text/javascript" src="js/datatables.min.js"></script>
 <!-- <script type="text/javascript" src="js/myjs.js"></script> -->
 
 
