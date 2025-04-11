@@ -53,10 +53,7 @@
                                     $exmneId = $selExmneRow['exmne_id'];
                                     $selExmneSessions = $conn->query("SELECT * FROM  sessions WHERE examin_id='$exmneId' AND exam_id = '$exam_id' AND exam_end_status = 1 ORDER BY session_id DESC ");
                                     if($selExmneSessions->rowCount()==0){ ?>
-                                        <tr style="background-color: #E9ECEE;color:black">
-                                            <td><?=$selExmneRow['exmne_fullname'];?></td>
-                                            <td colspan="4">Didn't take exam</td>
-                                        </tr>
+                                     
 
                                     <?php }else{
                                         $i=$selExmneSessions->rowCount();

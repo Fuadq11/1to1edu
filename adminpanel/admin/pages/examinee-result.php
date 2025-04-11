@@ -25,6 +25,7 @@
                                 <th>Total Scores</th>
                                 <!-- <th>Ratings</th> -->
                                 <th width="10%">Print</th>
+                                <th width="10%">Details</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -86,6 +87,9 @@
                                            <td>
                                                <button class="btn btn-sm btn-primary" onclick="generatePDF('<?=$selExmneRow['exmne_fullname']?>','<?=$selExName['ex_title']?>','<?=$en_score?>','<?=$math_score?>','<?=$total_score?>')">Print Result</button>
 
+                                           </td>
+                                           <td>
+                                           <a class="btn btn-sm btn-primary" href="?page=result&s_id=<?=$session_id?>" >See Result</a>  
                                            </td>
                                         </tr>
                                     <?php }}

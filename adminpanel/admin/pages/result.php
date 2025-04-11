@@ -1,8 +1,16 @@
-<?php 
- if(isset($_GET['id']) && empty($_GET['id'])==false && isset($_GET['s_id']) && empty($_GET['s_id'])==false){
-    $examId = $_GET['id'];
+ <?php 
+ if( isset($_GET['s_id']) && empty($_GET['s_id'])==false){
+    
     $session_id = $_GET['s_id'];
+    $selSessions = $conn->query("SELECT * FROM sessions WHERE session_id='$session_id' ");
+    
+    if($selSessions->rowCount()>0){
+    $selSession = $selSessions->fetch(PDO::FETCH_ASSOC);
+    
+    $examId = $selSession['exam_id'];
+    $exmneId = $selSession['examin_id'];
     $selExam = $conn->query("SELECT * FROM exam_tbl WHERE ex_id='$examId' ")->fetch(PDO::FETCH_ASSOC);
+    $selExamin = $conn->query("SELECT * FROM examinee_tbl WHERE exmne_id='$exmneId' ")->fetch(PDO::FETCH_ASSOC);
 
  ?>
 
@@ -25,7 +33,7 @@
             </div>
         </div>  
         <div class="row col-md-12 pl-4">
-        	<h1 class="text-primary ">Exam Result</h1>
+        	<h1 class="text-primary "><?=$selExamin['exmne_fullname']?> Exam Result</h1>
         </div>
         
         <div class="col-md-8 float-left">
@@ -33,7 +41,7 @@
                 <div class="card-body">
                 	<h5 class="card-title">Your Answers</h5>
                     
-        			<table class="align-middle mb-0 table table-borderless table-striped table-hover" id="tableList">
+        			<table class="align-middle mb-0 table table-borderless table-striped table-hover">
                         <?php
                             $arr[1]="Section 1, Module 1: Reading and Writing";
                             $arr[2]="Section 1, Module 2: Reading and Writing";
@@ -175,6 +183,13 @@
 
     </div>
 </div>
+<?php }else{ ?>
+    <script>
+        window.location.href="index.php";
+    </script>
+
+<?php 
+} ?>
 <?php }else{ ?>
     <script>
         window.location.href="index.php";
