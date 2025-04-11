@@ -123,8 +123,8 @@
                               </div>
                           </div>
                           <div class="card-body" >
-                            <div class="scroll-area-sm" style="min-height: 400px;">
-                               <div class="scrollbar-container">
+                            <div class="" style="min-height: 400px;">
+                               <div class="">
 
                             <?php 
                                
