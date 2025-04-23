@@ -20,7 +20,7 @@ if (!empty($_GET['s_id'])) {
                     case "b": return "exam_ch2";
                     case "c": return "exam_ch3";
                     case "d": return "exam_ch4";
-                    default: return "";
+                    default: return "exam_answer";
                 }
             } else {
                 return "exam_answer";
@@ -73,10 +73,10 @@ if (!empty($_GET['s_id'])) {
         while ($selQuestRow = $selQuest->fetch(PDO::FETCH_ASSOC)) {
             $questionText = $selQuestRow['exam_question'];
             $questionType = $selQuestRow['question_type'];
-            $userAnswer = isset($selQuestRow['exans_answer']) ? $selQuestRow[answer($questionType, $selQuestRow['exans_answer'])] : null;
-            $correctAnswer = $selQuestRow[answer($questionType, $selQuestRow['exam_answer'])];
+            $userAnswer = isset($selQuestRow['exans_answer']) ? strtolower(trim(strval($selQuestRow[answer($questionType, $selQuestRow['exans_answer'])]))) : null;
+            $correctAnswer = strtolower(trim(strval($selQuestRow[answer($questionType, $selQuestRow['exam_answer'])])));
 
-            $isCorrect = strtolower(trim(strval($selQuestRow['exam_answer']))) == strtolower(trim(strval($selQuestRow['exans_answer'])));
+            $isCorrect = $userAnswer == $correctAnswer;
 ?>
 
 <div class="card shadow-sm mb-4">
