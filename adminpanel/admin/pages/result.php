@@ -76,7 +76,7 @@ if (!empty($_GET['s_id'])) {
             $userAnswer = isset($selQuestRow['exans_answer']) ? $selQuestRow[answer($questionType, $selQuestRow['exans_answer'])] : null;
             $correctAnswer = $selQuestRow[answer($questionType, $selQuestRow['exam_answer'])];
 
-            $isCorrect = strtolower(trim($selQuestRow['exam_answer'])) == strtolower(trim($selQuestRow['exans_answer']));
+            $isCorrect = strtolower(trim(strval($selQuestRow['exam_answer']))) == strtolower(trim(strval($selQuestRow['exans_answer'])));
 ?>
 
 <div class="card shadow-sm mb-4">
