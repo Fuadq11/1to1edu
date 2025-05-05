@@ -13,18 +13,20 @@ if (!empty($_GET['s_id'])) {
         $selExam = $conn->query("SELECT * FROM exam_tbl WHERE ex_id='$examId'")->fetch(PDO::FETCH_ASSOC);
         $selExamin = $conn->query("SELECT * FROM examinee_tbl WHERE exmne_id='$exmneId'")->fetch(PDO::FETCH_ASSOC);
 
-        function answer($typ, $answ) {
-            if ($typ == 0) {
-                switch ($answ) {
-                    case "a": return "exam_ch1";
-                    case "b": return "exam_ch2";
-                    case "c": return "exam_ch3";
-                    case "d": return "exam_ch4";
-                    default: return "exam_answer";
+        function answer($typ, $answ,$user_question) {
+
+            
+                if ($typ == 0) {
+                    switch ($answ) {
+                        case "a": return "exam_ch1";
+                        case "b": return "exam_ch2";
+                        case "c": return "exam_ch3";
+                        case "d": return "exam_ch4";
+                        default: return $user_question;
+                    }
+                } else {
+                    return $user_question;
                 }
-            } else {
-                return "exam_answer";
-            }
         }
 ?> 
 
@@ -73,8 +75,10 @@ if (!empty($_GET['s_id'])) {
         while ($selQuestRow = $selQuest->fetch(PDO::FETCH_ASSOC)) {
             $questionText = $selQuestRow['exam_question'];
             $questionType = $selQuestRow['question_type'];
-            $userAnswer = isset($selQuestRow['exans_answer']) ? strtolower(trim(strval($selQuestRow[answer($questionType, $selQuestRow['exans_answer'])]))) : null;
-            $correctAnswer = strtolower(trim(strval($selQuestRow[answer($questionType, $selQuestRow['exam_answer'])])));
+            $userAnswer = isset($selQuestRow['exans_answer']) ? 
+                        strtolower(trim(strval($selQuestRow['exans_answer']))) : null;
+            
+            $correctAnswer = strtolower(trim(strval($selQuestRow['exam_answer'])));
 
             $isCorrect = $userAnswer == $correctAnswer;
 ?>
@@ -86,14 +90,14 @@ if (!empty($_GET['s_id'])) {
         <?php if ($userAnswer): ?>
             <div class="alert <?= $isCorrect ? 'alert-success' : 'alert-danger' ?> mb-2">
                 <i class="bi <?= $isCorrect ? 'bi-check-circle-fill' : 'bi-x-circle-fill' ?>"></i>
-                <strong>Your Answer:</strong> <?= $userAnswer ?>
+                <strong>Your Answer:</strong> <?= $selQuestRow[answer($questionType, $selQuestRow['exans_answer'],'exans_answer')] ?>
                 <br>
                 <?= $isCorrect ? '<span class="fw-semibold">Correct!</span>' : '<span class="fw-semibold">Wrong!</span>' ?>
             </div>
             <?php if (!$isCorrect): ?>
                 <div class="alert alert-secondary">
                     <i class="bi bi-info-circle-fill"></i>
-                    <strong>Correct Answer:</strong> <?= $correctAnswer ?>
+                    <strong>Correct Answer:</strong> <?= $selQuestRow[answer($questionType, $selQuestRow['exam_answer'],'exam_answer')] ?>
                 </div>
             <?php endif; ?>
         <?php else: ?>
