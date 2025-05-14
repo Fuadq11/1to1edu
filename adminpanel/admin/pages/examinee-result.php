@@ -85,7 +85,7 @@
                                                 <?=$total_score?>
                                             </td>
                                            <td>
-                                               <button class="btn btn-sm btn-primary" onclick="generatePDF('<?=$selExmneRow['exmne_fullname']?>','<?=$selExName['ex_title']?>','<?=$en_score?>','<?=$math_score?>','<?=$total_score?>')">Print Result</button>
+                                               <button class="btn btn-sm btn-primary" onclick="generatePDF('<?=$selExmneRow['exmne_fullname']?>','<?=$selExName['ex_title']?>','<?=$en_score?>','<?=$math_score?>','<?=$total_score?>','<?=$selExmneSession['en_time']?>','<?=$selExmneRow['exmne_id']?>')">Print Result</button>
 
                                            </td>
                                            <td>
