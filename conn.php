@@ -1,9 +1,9 @@
 <?php 
 
 $host = "localhost";
-$user = "root";
-$pass = "";
-$db   = "examsystem";
+$user = "httpdfvv";
+$pass = "VzrN8-7tfss*";
+$db   = "httpdfvv_1to1edu";
 $conn = null;
 
 try {
