@@ -5,6 +5,14 @@
 
 if(isset($act) && $act == "exam_status"){
   $updExam = $conn->query("UPDATE exam_tbl SET status = '$status' WHERE  ex_id='$ex_id' ");
+  if($updExam)
+  {
+    $res = array("res" => "success", "msg" => "Status updated successfully");
+  }
+  else
+  {
+    $res = array("res" => "failed", "msg" => "Failed to update status");
+  }
 }else{
  $updExam = $conn->query("UPDATE exam_tbl SET 
                           cou_id='$courseId', 
@@ -17,15 +25,15 @@ if(isset($act) && $act == "exam_status"){
                           exam_type='$exam_type',
                           exam_end_type='$exam_end_type' 
                           WHERE  ex_id='$examId'");
+  if($updExam)
+  {
+    $res = array("res" => "success", "msg" => $examTitle);
+  }
+  else
+  {
+    $res = array("res" => "failed");
+  }
 }
- if($updExam)
- {
-   $res = array("res" => "success", "msg" => $examTitle);
- }
- else
- {
-   $res = array("res" => "failed");
- }
 
  echo json_encode($res);
  ?>

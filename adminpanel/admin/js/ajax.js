@@ -193,31 +193,67 @@ $(document).on("submit","#addExamFrm" , function(){
   return false;
 });
 // Exam status changer
-$(document).on("change","#exam_status_changer" , function(){
+$(document).on("change",".exam_status_changer" , function(){    
     let status = 0;
     let exam_id = $(this).attr("data-id");
-   if($(this).is(":checked")){
-      status = 1;
-      $(this).siblings("label").html("Active");
-   }else{
-    $(this).siblings("label").html("Deactive");
-   }
-
-   $.ajax({
-    url: "query/updateExamExe.php",
-    method: "post",
-    data: {act:"exam_status",ex_id: exam_id,status:status },
-    dataType: 'json',
-    success: function(data){
-        if(data.res == "success"){
-          
-        }
+    let checkbox = $(this);
+    let label = checkbox.siblings('label.custom-control-label');
+    
+    if(checkbox.is(":checked")){
+        status = 1;
+        label.text("Active");
+    } else {
+        status = 0;
+        label.text("Inactive");
     }
-   })
-  
 
+    $.ajax({
+        url: "query/updateExamExe.php",
+        method: "post",
+        data: {act:"exam_status", ex_id: exam_id, status: status},
+        dataType: 'json',
+        success: function(data){
+            if(data.res == "success"){
+                Swal.fire({
+                    title: 'Success',
+                    text: 'Exam status updated successfully!',
+                    icon: 'success',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            } else {
+                // Revert the checkbox state if update failed
+                checkbox.prop('checked', !checkbox.is(':checked'));
+                if(checkbox.is(':checked')) {
+                    label.text("Active");
+                } else {
+                    label.text("Inactive");
+                }
+                
+                Swal.fire(
+                    'Error',
+                    'Failed to update exam status',
+                    'error'
+                );
+            }
+        },
+        error: function(xhr, status, error){
+            // Revert the checkbox state on error
+            checkbox.prop('checked', !checkbox.is(':checked'));
+            if(checkbox.is(':checked')) {
+                label.text("Active");
+            } else {
+                label.text("Inactive");
+            }
+            
+            Swal.fire(
+                'Error',
+                'Something went wrong. Please try again.',
+                'error'
+            );
+        }
+    });
 })
-
 
 // Update Exam 
 $(document).on("submit","#updateExamFrm" , function(){

@@ -52,13 +52,13 @@
                                             <td>
                                             <?php if($selExamRow['status']==0) {?>
                                                 <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input" id="exam_status_changer" data-id='<?=$selExamRow['ex_id']?>'>
-                                                    <label class="custom-control-label" for="exam_status_changer">Deactive</label>
+                                                    <input type="checkbox" class="custom-control-input exam_status_changer" id="exam_status_<?=$selExamRow['ex_id']?>" data-id='<?=$selExamRow['ex_id']?>'>
+                                                    <label class="custom-control-label" for="exam_status_<?=$selExamRow['ex_id']?>">Inactive</label>
                                                 </div>
                                                 <?php }else{ ?>
                                                     <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input" id="exam_status_changer" checked data-id='<?=$selExamRow['ex_id']?>'>
-                                                        <label class="custom-control-label" for="exam_status_changer">Active</label>
+                                                        <input type="checkbox" class="custom-control-input exam_status_changer" id="exam_status_<?=$selExamRow['ex_id']?>" checked data-id='<?=$selExamRow['ex_id']?>'>
+                                                        <label class="custom-control-label" for="exam_status_<?=$selExamRow['ex_id']?>">Active</label>
                                                     </div>  
                                                 <?php } ?>
                                             </td>
